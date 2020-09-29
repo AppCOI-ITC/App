@@ -5,7 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter_app/screens/wrapper.dart';
 import 'package:flutter_app/models/userR.dart';
 //Cuenta de test
-// mail: cfrancisco23273@gmail.com
+// mail: test@gmail.com
 // Clave: test1234
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
