@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/services/auth.dart';
@@ -11,14 +12,14 @@ class Home extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.brown[50],
       //===================================
-      //==============DRAWNER=================
+      //==============DRAWNER==============
       //===================================
       drawer: Drawer(
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
               accountName: Text('Prueba COI'),
-              accountEmail: Text('ejemplo@mail.com'),
+              accountEmail: Text('campo de texto'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],
               ),
@@ -36,7 +37,7 @@ class Home extends StatelessWidget {
         ),
       ),
       //===================================
-      //==============APPBAR=================
+      //==============APPBAR===============
       //===================================
       appBar: AppBar(
         title: Text('COI - ITC'),
@@ -84,7 +85,7 @@ class Home extends StatelessWidget {
                     proceso(context);
                   },
                   child: Text('Calendario', style: TextStyle(fontSize: 30.0)),
-                  padding: EdgeInsets.fromLTRB(35.0, 70.0, 25.0, 70.0),
+                  padding: EdgeInsets.fromLTRB(10.0, 70.0, 10.0, 70.0), //35.0, 70.0, 25.0, 70.0
                 ),
               ],
             ),

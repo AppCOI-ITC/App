@@ -2,6 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 import 'package:flutter_app/shared/constants.dart';
+import 'package:flutter_app/shared/loading.dart';
 
 class SignIn extends StatefulWidget {
 
@@ -25,9 +26,9 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(    //loading ? Loading() : 
+    return loading ? Loading() : Scaffold(    
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(100, 0, 145, 245),
+        backgroundColor: Colors.brown[400],
         elevation: 0.0,
         title: Text('Inicio de Sesion'),
         actions: <Widget>[
@@ -51,16 +52,16 @@ class _SignInState extends State<SignIn> {
                   SizedBox(height: 20.0),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(hintText: 'Email'),
-                    validator: (val) => val.isEmpty ? 'Enter an email' : null,
+                    validator: (val) => val.isEmpty ? 'ingrese un mail' : null,
                     onChanged: (val) {
                       setState(() => email = val);
                     }
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
-                    decoration: textInputDecoration.copyWith(hintText: 'Password'),
+                    decoration: textInputDecoration.copyWith(hintText: 'Contraseña'),
                     obscureText: true,
-                    validator: (val) => val.length < 6 ? 'Enter a password 6+ chars longs' : null,
+                    validator: (val) => val.length < 6 ? 'Ingrese una clave de mas de 6 digitos' : null,
                     onChanged: (val) {
                       setState(() => password = val);
                     }
@@ -69,7 +70,7 @@ class _SignInState extends State<SignIn> {
                   RaisedButton(
                     color: Colors.pink[400],
                     child: Text(
-                      'sign in',
+                      'Ingresar',
                       style: TextStyle(color: Colors.white),
                     ),
                     

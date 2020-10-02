@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 import 'package:flutter_app/shared/constants.dart';
-
-//bugs
-//23/09 + cuando se ingresa un correo registrado previamente se lanza el error 
+import 'package:flutter_app/shared/loading.dart';
 
 class Register extends StatefulWidget {
 
@@ -18,7 +16,7 @@ class _RegisterState extends State<Register> {
 
   final AuthService _auth = AuthService();
   final _formKey =  GlobalKey<FormState>();
-
+  bool loading = false;
   // Text field state
   String email = '';
   String password = '';
@@ -26,7 +24,7 @@ class _RegisterState extends State<Register> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return loading ? Loading() : Scaffold(
       appBar: AppBar(
         backgroundColor: Color.fromARGB(100, 0, 145, 245),
         elevation: 0.0,
@@ -84,20 +82,18 @@ class _RegisterState extends State<Register> {
                   SizedBox(height: 20.0),
                   RaisedButton(
                     onPressed: () async {
-                      // check the form for empty spots and validity
+                      setState(() => loading = true);
                       bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
                       if (emailValid) {
                         if (_formKey.currentState.validate()) {
                           dynamic result = await _auth.registerWhitEmailAndPassword(email, password);
                           print(result);
                           if (result == null) {
+                            loading = false;
                             setState(() => error = 'Write a valid email');
                           }
                         }
                       } 
-                      /*else {
-                        setState(() => error = 'ingresar un mail valido');
-                      }*/
                     },
                     color: Colors.pink[300],
                     child: Text(
