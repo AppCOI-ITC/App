@@ -64,6 +64,7 @@ class Home extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
+                //=====BOTON->Reportes===============
                 RaisedButton(
                   elevation: 5.0,
                   color: Colors.redAccent[400],
@@ -74,6 +75,7 @@ class Home extends StatelessWidget {
                   child: Text('Reportes', style: TextStyle(fontSize: 30.0)),
                   padding: EdgeInsets.fromLTRB(25.0, 70.0, 35.0, 70.0),
                 ),
+                //=====BOTON->Calendario=============
                 RaisedButton(
                   elevation: 5.0,
                   color: Colors.blueAccent[400],
@@ -86,6 +88,7 @@ class Home extends StatelessWidget {
                 ),
               ],
             ),
+            //=====BOTON->Cuestionario excepcional===
             RaisedButton(
               elevation: 5.0,
               color: Colors.greenAccent[400],

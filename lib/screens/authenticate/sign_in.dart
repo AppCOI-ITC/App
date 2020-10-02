@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 import 'package:flutter_app/shared/constants.dart';
@@ -67,33 +66,6 @@ class _SignInState extends State<SignIn> {
                     }
                   ),
                   SizedBox(height: 20.0),
-                  /*
-                  RaisedButton(
-                    onPressed: () async {
-                      // check the form for empty spots and validity
-                      bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
-                      if (emailValid) {
-                        if (_formKey.currentState.validate()) {
-                          setState(() => loading = false);
-                          dynamic result = await _auth.SignInWhitEmailAndPassword(email, password);
-                          print(result);
-                          if (result == null) {
-                          setState(() => error = 'Write a valid email');
-                          loading = false;
-                        }
-                      } else {
-                        setState(
-                            () => error = 'Write a valid email you moron!');
-                            loading = false;
-                      }
-                    }},
-                    color: Colors.pink[300],
-                    child: Text(
-                      'Sign in ',
-                      style: TextStyle(color: Colors.white),
-                    )
-                  ),*/
-                  ///*
                   RaisedButton(
                     color: Colors.pink[400],
                     child: Text(
@@ -105,16 +77,16 @@ class _SignInState extends State<SignIn> {
                       if (_formKey.currentState.validate()){
                         setState(() => loading = true);
                         dynamic result = await _auth.SignInWhitEmailAndPassword(email, password);
-                        if(result == null){ //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++EVALUAR PORQUE NO CAPTURA EL ERROR
+                        if(result == null){
                           setState(() {
-                            error = 'could not sign in with those credentials';
+                            error = 'Error al ingresar intente nuevamente';
                             loading = false;
                           });
                         }
                       }
                     }
                     
-                  ),//*/
+                  ),
                   SizedBox(height: 12.0),
                   Text(
                     error,
