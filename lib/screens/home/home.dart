@@ -86,13 +86,13 @@ class Home extends StatelessWidget {
                 //=====BOTON->Reportes===============
                 SizedBox(
                   height: 50.0,
-                  width: 190.0,
+                  width: 175.0,
                   child: RaisedButton.icon(
                     icon: Icon(Icons.receipt),
                     elevation: 6.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                     color: Colors.green[300],
-                    label: Text('Reportes', style: TextStyle(fontSize: 30.0)),
+                    label: Text('Reportes', style: TextStyle(fontSize: 23.0)),
                     onPressed: () {
                      print('en proceso');
                       proceso(context);
@@ -102,12 +102,12 @@ class Home extends StatelessWidget {
                 //=====BOTON->Calendario=============
                 SizedBox(
                   height: 50.0,
-                  width: 190.0,
+                  width: 175.0,
                   child: RaisedButton.icon(
                     icon: Icon(Icons.calendar_today),
                     elevation: 6.0,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                    label: Text('Calendario', style: TextStyle(fontSize: 25.0)),
+                    label: Text('Calendario', style: TextStyle(fontSize: 22.0)),
                     color: Colors.green[300],
                     onPressed: () {
                      print('en proceso');
