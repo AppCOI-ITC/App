@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/home/home.dart';
 
 class Cuestionario2 extends StatelessWidget {
@@ -71,6 +72,8 @@ class Cuestionario2 extends StatelessWidget {
 }
 
 void cambiodePagina(context){
-  Route route =MaterialPageRoute(builder: (bc) => Home());
-  Navigator.of(context).push(route);
+  Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
+  Route route2 = MaterialPageRoute(builder: (bc) => Home());
+  Navigator.of(context).pop(route);
+  Navigator.of(context).pop(route2);
 }
