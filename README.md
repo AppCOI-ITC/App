@@ -10,7 +10,3 @@ una consulta.
 
 - [COI-Centro Oncologico Integral](http://www.centrooncologicointegral.com/)
 - [ITC-Instituo Tecnologico del Comahue](http://colegioitc.edu.ar/)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
