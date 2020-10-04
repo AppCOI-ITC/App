@@ -1,12 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/services/auth.dart';
+import 'package:flutter_app/screens/services/database.dart';
+import 'package:provider/provider.dart';
+
 
 class Home extends StatelessWidget {
 
   final AuthService _auth = AuthService();
-
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +23,7 @@ class Home extends StatelessWidget {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('Prueba COI'),
+              accountName: Text('Nombre'),
               accountEmail: Text('campo de texto'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],

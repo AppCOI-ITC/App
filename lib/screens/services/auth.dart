@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_app/models/userR.dart';
+import 'package:flutter_app/screens/services/database.dart';
 
 /* 
 For those who are watching this in 2020 , you should change part of code:
@@ -52,10 +53,14 @@ class AuthService {
   }
 
   // register with email & password
-  Future registerWhitEmailAndPassword(String email, String password) async {
+  Future registerWhitEmailAndPassword(String email, String password, String nombre, int documento) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(email: email.trim(), password: password.trim());
       User user = result.user;
+
+      //create a new dcument for the user whit the uid
+      await DatabaseService(uid: user.uid).updateUserData(email,nombre,documento);
+
       return _userFromFirebaseUser(user);
     } catch(e){
       print(e.toString());

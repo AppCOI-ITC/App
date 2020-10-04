@@ -18,6 +18,8 @@ class _RegisterState extends State<Register> {
   final _formKey =  GlobalKey<FormState>();
   bool loading = false;
   // Text field state
+  String nombre = '';
+  int documento;
   String email = '';
   String password = '';
   String error = '';
@@ -64,8 +66,30 @@ class _RegisterState extends State<Register> {
                   children: <Widget>[
                   SizedBox(height: 20.0),
                   TextFormField(
+                    decoration: textInputDecoration.copyWith(labelText: 'Nombre',hintText: 'Pedro Morales'),
+                    //validator: (val) => val.length < 6 ? 'ingrese un mail' : null,
+                    onChanged: (val) {
+                      setState(() => nombre = val);
+                    }
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
+                    decoration: textInputDecoration.copyWith(labelText: 'N° documento',hintText: '12345678'),
+                    validator: (val) => val.length > 9 ? 'ingrese un dni valido' : null,
+                    onChanged: (val) {
+                      setState(() => documento = int.parse(val));
+                    }
+                  ),
+                  SizedBox(height: 20.0),
+                  TextFormField(
                     decoration: textInputDecoration.copyWith(labelText: 'Mail',hintText: 'ejemplo@mail.com'),
-                    validator: (val) => val.length < 6 ? 'ingrese un mail' : null,
+                    validator: (val) {                   
+                    if (!val.contains('@')){
+                        return 'ingrese un mail';
+                      }else{
+                        return null;
+                      }
+                    },
                     onChanged: (val) {
                       setState(() => email = val);
                     }
@@ -86,14 +110,14 @@ class _RegisterState extends State<Register> {
                       bool emailValid = RegExp(r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+").hasMatch(email);
                       if (emailValid) {
                         if (_formKey.currentState.validate()) {
-                          dynamic result = await _auth.registerWhitEmailAndPassword(email, password);
+                          dynamic result = await _auth.registerWhitEmailAndPassword(email, password,nombre,documento);
                           print(result);
                           if (result == null) {
                             loading = false;
                             setState(() => error = 'Write a valid email');
                           }
                         }
-                      } 
+                      }else{loading = false;} 
                     },
                     color: Colors.pink[300],
                     child: Text(
