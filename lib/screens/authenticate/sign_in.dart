@@ -26,11 +26,12 @@ class _SignInState extends State<SignIn> {
 
   @override
   Widget build(BuildContext context) {
-    return loading ? Loading() : Scaffold(    
+    return loading ? Loading() : Scaffold(  
+      backgroundColor: Colors.blueGrey[50],  
       appBar: AppBar(
-        backgroundColor: Colors.brown[400],
+        backgroundColor: Color.fromRGBO(109, 213, 250, 1),
         elevation: 0.0,
-        title: Text('Inicio de Sesion'),
+        title: Text('Inicio de Sesion', style: TextStyle(color: Colors.black)),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person), 
@@ -51,7 +52,7 @@ class _SignInState extends State<SignIn> {
                 children: <Widget>[
                   SizedBox(height: 20.0),
                   TextFormField(
-                    decoration: textInputDecoration.copyWith(hintText: 'Email'),
+                    decoration: textInputDecoration.copyWith(labelText: 'Email',hintText: 'ejemplo@mail.com'),
                     validator: (val) => val.isEmpty ? 'ingrese un mail' : null,
                     onChanged: (val) {
                       setState(() => email = val);
@@ -59,7 +60,7 @@ class _SignInState extends State<SignIn> {
                   ),
                   SizedBox(height: 20.0),
                   TextFormField(
-                    decoration: textInputDecoration.copyWith(hintText: 'Contraseña'),
+                    decoration: textInputDecoration.copyWith(labelText: 'Contraseña',hintText: '******'),
                     obscureText: true,
                     validator: (val) => val.length < 6 ? 'Ingrese una clave de mas de 6 digitos' : null,
                     onChanged: (val) {
@@ -68,10 +69,15 @@ class _SignInState extends State<SignIn> {
                   ),
                   SizedBox(height: 20.0),
                   RaisedButton(
-                    color: Colors.pink[400],
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    elevation: 6.0,
+                    padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
                     child: Text(
                       'Ingresar',
-                      style: TextStyle(color: Colors.white),
+                      style: TextStyle(color: Colors.white,fontSize: 18.0),
                     ),
                     
                     onPressed: () async {

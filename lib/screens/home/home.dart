@@ -1,11 +1,6 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/services/auth.dart';
-import 'package:flutter_app/screens/services/database.dart';
-import 'package:provider/provider.dart';
 
 
 class Home extends StatelessWidget {
@@ -15,11 +10,12 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.brown[50],
+      backgroundColor: Colors.blueGrey[50],
       //===================================
       //==============DRAWNER==============
       //===================================
       drawer: Drawer(
+        elevation: 10.0,
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
@@ -28,7 +24,7 @@ class Home extends StatelessWidget {
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],
               ),
-              decoration: BoxDecoration(color: Colors.grey[350]),
+              decoration: BoxDecoration(color: Color.fromRGBO(109, 213, 250, 1)),
             ),
             ListTile(
               leading: Icon(Icons.assistant_photo),
@@ -36,7 +32,14 @@ class Home extends StatelessWidget {
               onTap: (){
                 print('en proceso...');
                 proceso(context);
-              } 
+              },    
+            ),
+            ListTile(
+              leading: Icon(Icons.exit_to_app),
+              title: Text('cerrar sesion'), 
+              onTap: () async {
+                await _auth.signOut();
+              }
             )
           ],
         ),
@@ -45,18 +48,11 @@ class Home extends StatelessWidget {
       //==============APPBAR===============
       //===================================
       appBar: AppBar(
-        title: Text('COI - ITC'),
-        backgroundColor: Colors.brown[400],
-        elevation: 0.0,
-        actions: <Widget>[
-          FlatButton.icon( 
-            icon: Icon(Icons.person),
-            label: Text('logout'), 
-            onPressed: () async {
-              await _auth.signOut();
-            }
-          )
-        ],
+        title: Text('COI - ITC', style: TextStyle(color: Colors.black)),
+        centerTitle: true,
+        backgroundColor: Color.fromRGBO(109, 213, 250, 1),
+        elevation: 4.0,
+        iconTheme: IconThemeData(color: Colors.black),
       ),
       //===================================
       //==============BODY=================
@@ -67,45 +63,76 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: <Widget>[
+            //=====BOTON->Cuestionario===========
+            SizedBox(
+              height: 100.0,
+              width: 400.0,
+              child: RaisedButton(
+                color: Colors.green[300],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15.0)
+                ),
+                elevation: 6.0,
+                child: Text('Cuestionario',style: TextStyle(fontSize: 40.0),),
+                onPressed: (){
+                  Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
+                  Navigator.of(context).push(route);
+                },
+              ), 
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 //=====BOTON->Reportes===============
-                RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.redAccent[400],
-                  onPressed: () {
-                    print('en proceso');
-                    proceso(context);
-                  },
-                  child: Text('Reportes', style: TextStyle(fontSize: 30.0)),
-                  padding: EdgeInsets.fromLTRB(25.0, 70.0, 35.0, 70.0),
+                SizedBox(
+                  height: 50.0,
+                  width: 190.0,
+                  child: RaisedButton.icon(
+                    icon: Icon(Icons.receipt),
+                    elevation: 6.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                    color: Colors.green[300],
+                    label: Text('Reportes', style: TextStyle(fontSize: 30.0)),
+                    onPressed: () {
+                     print('en proceso');
+                      proceso(context);
+                   },
+                  ),
                 ),
                 //=====BOTON->Calendario=============
-                RaisedButton(
-                  elevation: 5.0,
-                  color: Colors.blueAccent[400],
-                  onPressed: () {
-                    print('en proceso');
-                    proceso(context);
-                  },
-                  child: Text('Calendario', style: TextStyle(fontSize: 30.0)),
-                  padding: EdgeInsets.fromLTRB(10.0, 70.0, 10.0, 70.0), //35.0, 70.0, 25.0, 70.0
+                SizedBox(
+                  height: 50.0,
+                  width: 190.0,
+                  child: RaisedButton.icon(
+                    icon: Icon(Icons.calendar_today),
+                    elevation: 6.0,
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                    label: Text('Calendario', style: TextStyle(fontSize: 25.0)),
+                    color: Colors.green[300],
+                    onPressed: () {
+                     print('en proceso');
+                      proceso(context);
+                   },
+                  ),
                 ),
               ],
             ),
             //=====BOTON->Cuestionario excepcional===
-            RaisedButton(
-              elevation: 5.0,
-              color: Colors.greenAccent[400],
-              onPressed: () {
-                print('cuestionario presionado');
-                Route route =MaterialPageRoute(builder: (bc) => Cuestionario());
-                Navigator.of(context).push(route);
-              },
-              child: Text('Cuestionario extra', style: TextStyle(fontSize: 30.0)),
-              padding: EdgeInsets.fromLTRB(70.0, 100.0, 70.0, 100.0),
-            )
+            SizedBox(
+              height: 100.0,
+              width: 400.0,
+              child: RaisedButton.icon(
+                icon: Icon(Icons.assignment_late,size: 35.0,),
+                elevation: 6.0,
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                color: Colors.red[400],
+                label: Text('Cuestionario Excepcional', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                onPressed: () {
+                  print('en proceso');
+                  proceso(context);
+                },
+              ),
+            ),
           ],
         ),
       ),

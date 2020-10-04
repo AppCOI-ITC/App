@@ -27,10 +27,11 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     return loading ? Loading() : Scaffold(
+      backgroundColor: Colors.blueGrey[50],
       appBar: AppBar(
-        backgroundColor: Color.fromARGB(100, 0, 145, 245),
-        elevation: 0.0,
-        title: Text('COI - ITC'),
+        backgroundColor: Color.fromRGBO(109, 213, 250, 1),
+        elevation: 4.0,
+        title: Text('COI - ITC',style: TextStyle(color: Colors.black)),
         actions: <Widget>[
           FlatButton.icon(
             icon: Icon(Icons.person), 
@@ -52,7 +53,7 @@ class _RegisterState extends State<Register> {
               child: Text(
                 'Registro en la aplicacion',
                 style: TextStyle(
-                  color: Color.fromARGB(100, 0, 145, 245),
+                  color: Colors.black54,
                   fontWeight: FontWeight.w500,
                   fontSize: 28
                 ), 
@@ -64,7 +65,7 @@ class _RegisterState extends State<Register> {
                 key: _formKey,
                 child: Column(
                   children: <Widget>[
-                  SizedBox(height: 20.0),
+                  SizedBox(),
                   TextFormField(
                     decoration: textInputDecoration.copyWith(labelText: 'Nombre',hintText: 'Pedro Morales'),
                     //validator: (val) => val.length < 6 ? 'ingrese un mail' : null,
@@ -119,10 +120,15 @@ class _RegisterState extends State<Register> {
                         }
                       }else{loading = false;} 
                     },
-                    color: Colors.pink[300],
+                    color: Colors.blueGrey,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    elevation: 6.0,
+                    padding: EdgeInsets.fromLTRB(60, 10, 60, 10),
                     child: Text(
-                      'Register',
-                      style: TextStyle(color: Colors.white),
+                      'Registrarse',
+                      style: TextStyle(color: Colors.white,fontSize: 18.0),
                     )
                   ),
                   SizedBox(height: 12.0),
