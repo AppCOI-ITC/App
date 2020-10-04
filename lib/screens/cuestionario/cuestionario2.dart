@@ -72,8 +72,11 @@ class Cuestionario2 extends StatelessWidget {
 }
 
 void cambiodePagina(context){
+  //se configura la primer ruta
   Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
+  //se configura la segunda ruta 
   Route route2 = MaterialPageRoute(builder: (bc) => Home());
+  //se hace un pop a Cuestionario y luego a Home
   Navigator.of(context).pop(route);
   Navigator.of(context).pop(route2);
 }

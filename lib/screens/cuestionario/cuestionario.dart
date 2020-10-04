@@ -58,6 +58,8 @@ class _CuestionarioState extends State<Cuestionario> {
 }
 
 void cambiodePagina(context){
+  //se configura la ruta
   Route route =MaterialPageRoute(builder: (bc) => Cuestionario2());
+  //se hace aparecer la ventana Cuestionario2 
   Navigator.of(context).push(route);
 }
