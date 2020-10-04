@@ -1,15 +1,15 @@
 # Aplicacion COI-ITC
 
-A new Flutter application.
+Aplicacion en colaboracion entre el ITC y el COI
 
-## Getting Started
+## Objetivo
 
-This project is a starting point for a Flutter application.
+El objetivo de esta aplicacion es permitir al medico diagnosticar/monitorizar
+el estado del paciente sin la necesidad de que este tenga que realizar
+una consulta.
 
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+- [COI-Centro Oncologico Integral](http://www.centrooncologicointegral.com/)
+- [ITC-Instituo Tecnologico del Comahue](http://colegioitc.edu.ar/)
 
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
