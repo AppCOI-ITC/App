@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
+import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 
 
@@ -128,8 +129,7 @@ class Home extends StatelessWidget {
                 color: Colors.red[400],
                 label: Text('Cuestionario Excepcional', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
                 onPressed: () {
-                  print('en proceso');
-                  proceso(context);
+                  advertencia(context);
                 },
               ),
             ),
@@ -139,6 +139,39 @@ class Home extends StatelessWidget {
     );
   }
 }
+
+void pantallaCE(context) {
+  Route route = MaterialPageRoute(builder: (bc) => CExcepcional());
+  Navigator.of(context).push(route);
+}
+
+void advertencia(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Advertencia'),
+        content: Text('Esta seguro de querer realizar un cuestionario excepcional'),
+        actions: [
+          RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: Text('No')
+          ),
+          RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                pantallaCE(context);
+              },
+              child: Text('Si'),
+          )
+        ],
+      );
+    }
+  );
+}
+
 
 void proceso(context) {
   showDialog(
