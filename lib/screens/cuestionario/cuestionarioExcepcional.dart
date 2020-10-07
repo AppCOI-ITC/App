@@ -12,7 +12,6 @@ class CExcepcional extends StatefulWidget {
 }
 
 class _CExcepcionalState extends State<CExcepcional> {
-  final snackBar = SnackBar(content: Text('Yay! A SnackBar!'));
   final CollectionReference collectionBD = FirebaseFirestore.instance.collection('DataUsuarios');
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey =  GlobalKey<FormState>();
@@ -79,11 +78,16 @@ class _CExcepcionalState extends State<CExcepcional> {
     ); 
   }
 
-  void inputData(String answer) {
+void inputData(String answer) {
     final User user = auth.currentUser;
     final uid = user.uid;
     // here you write the codes to input the data into firestore
-    collectionBD.doc(uid).set({'Cuestionario Excepcional': answer,});
+    //collectionBD.doc(uid).set({'Cuestionario Excepcional': answer,});
+    collectionBD
+        .doc(uid)
+        .collection('Cuestionarios excepcionales')
+        .add({'Cuestionario': answer});
     Navigator.of(context).pop();
   }
+
 }

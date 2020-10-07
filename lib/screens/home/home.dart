@@ -1,13 +1,43 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
 
+class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
-  
+
+  //==========en fase de test=========================
+  final FirebaseAuth auth = FirebaseAuth.instance;
+  dynamic data;
+
+  Future<dynamic> getData() async {
+    final User user = auth.currentUser;
+    final uid = user.uid;
+    final DocumentReference document =   FirebaseFirestore.instance.collection("DataUsuarios").doc(uid);
+
+    await document.get().then<dynamic>(( DocumentSnapshot snapshot) async{
+     setState(() {
+       data =snapshot.data;
+     });
+    });
+  }
+
+  @override
+  void initState() {
+
+    super.initState();
+    getData();
+  }
+  //=====================================================
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,8 +50,8 @@ class Home extends StatelessWidget {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('Nombre'),
-              accountEmail: Text('campo de texto'),
+              accountName: Text('nombre'),
+              accountEmail: Text('nombre'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],
               ),
@@ -170,6 +200,7 @@ void advertencia(context) {
       );
     }
   );
+
 }
 
 
