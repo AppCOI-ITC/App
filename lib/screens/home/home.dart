@@ -14,29 +14,19 @@ class Home extends StatefulWidget {
 class _HomeState extends State<Home> {
   final AuthService _auth = AuthService();
 
-  //==========en fase de test=========================
   final FirebaseAuth auth = FirebaseAuth.instance;
-  dynamic data;
-
-  Future<dynamic> getData() async {
-    final User user = auth.currentUser;
-    final uid = user.uid;
-    final DocumentReference document =   FirebaseFirestore.instance.collection("DataUsuarios").doc(uid);
-
-    await document.get().then<dynamic>(( DocumentSnapshot snapshot) async{
-     setState(() {
-       data =snapshot.data;
-     });
-    });
-  }
+  User user;
 
   @override
   void initState() {
-
     super.initState();
-    getData();
+    initUser();
   }
-  //=====================================================
+
+  initUser() async {
+    user = await auth.currentUser;
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,8 +40,8 @@ class _HomeState extends State<Home> {
         child: ListView(
           children: [
             UserAccountsDrawerHeader(
-              accountName: Text('nombre'),
-              accountEmail: Text('nombre'),
+              accountName: Text("${user?.displayName}"),
+              accountEmail: Text("${user?.email}"),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],
               ),
