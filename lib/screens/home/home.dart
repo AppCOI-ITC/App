@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
@@ -32,9 +31,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
-      //===================================
       //==============DRAWNER==============
-      //===================================
       drawer: Drawer(
         elevation: 10.0,
         child: ListView(
@@ -42,32 +39,23 @@ class _HomeState extends State<Home> {
             UserAccountsDrawerHeader(
               accountName: Text("${user?.displayName}"),
               accountEmail: Text("${user?.email}"),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.grey[400],
-              ),
+              currentAccountPicture: CircleAvatar(backgroundColor: Colors.grey[400]),
               decoration: BoxDecoration(color: Color.fromRGBO(109, 213, 250, 1)),
             ),
             ListTile(
               leading: Icon(Icons.assistant_photo),
               title: Text('reportar error'),
-              onTap: (){
-                print('en proceso...');
-                proceso(context);
-              },    
+              onTap: (){ proceso(context); },    
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
               title: Text('cerrar sesion'), 
-              onTap: () async {
-                await _auth.signOut();
-              }
+              onTap: () async {await _auth.signOut();}
             )
           ],
         ),
       ),
-      //===================================
       //==============APPBAR===============
-      //===================================
       appBar: AppBar(
         title: Text('COI - ITC', style: TextStyle(color: Colors.black)),
         centerTitle: true,
@@ -75,9 +63,7 @@ class _HomeState extends State<Home> {
         elevation: 4.0,
         iconTheme: IconThemeData(color: Colors.black),
       ),
-      //===================================
       //==============BODY=================
-      //===================================
       body: 
       Container(
         color: Colors.grey[100],
@@ -90,9 +76,7 @@ class _HomeState extends State<Home> {
               width: 400.0,
               child: RaisedButton(
                 color: Colors.green[300],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)
-                ),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
                 elevation: 6.0,
                 child: Text('Cuestionario',style: TextStyle(fontSize: 40.0),),
                 onPressed: (){
@@ -114,10 +98,7 @@ class _HomeState extends State<Home> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                     color: Colors.green[300],
                     label: Text('Reportes', style: TextStyle(fontSize: 23.0)),
-                    onPressed: () {
-                     print('en proceso');
-                      proceso(context);
-                   },
+                    onPressed: () { proceso(context); },
                   ),
                 ),
                 //=====BOTON->Calendario=============
@@ -130,10 +111,7 @@ class _HomeState extends State<Home> {
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                     label: Text('Calendario', style: TextStyle(fontSize: 22.0)),
                     color: Colors.green[300],
-                    onPressed: () {
-                     print('en proceso');
-                      proceso(context);
-                   },
+                    onPressed: () { proceso(context); },
                   ),
                 ),
               ],
@@ -148,9 +126,7 @@ class _HomeState extends State<Home> {
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
                 color: Colors.red[400],
                 label: Text('Cuestionario Excepcional', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
-                onPressed: () {
-                  advertencia(context);
-                },
+                onPressed: () { advertencia(context); },
               ),
             ),
           ],
@@ -160,11 +136,13 @@ class _HomeState extends State<Home> {
   }
 }
 
+//cambio a la pantalla del cuestionario excepcional
 void pantallaCE(context) {
   Route route = MaterialPageRoute(builder: (bc) => CExcepcional());
   Navigator.of(context).push(route);
 }
 
+//cuadro de "advertencia"
 void advertencia(context) {
   showDialog(
     context: context,
@@ -174,17 +152,15 @@ void advertencia(context) {
         content: Text('Esta seguro de querer realizar un cuestionario excepcional'),
         actions: [
           RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('No')
+            onPressed: () { Navigator.of(context).pop(); },
+            child: Text('No')
           ),
           RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                pantallaCE(context);
-              },
-              child: Text('Si'),
+            onPressed: () {
+              Navigator.of(context).pop();
+              pantallaCE(context);
+            },
+            child: Text('Si'),
           )
         ],
       );
@@ -193,7 +169,7 @@ void advertencia(context) {
 
 }
 
-
+//cuadro de en "trabajo..."
 void proceso(context) {
   showDialog(
     context: context,
@@ -203,9 +179,7 @@ void proceso(context) {
         content: Text('Esta aplicación está en etapa de pruebas. Esta función será implementada en el futuro'),
         actions: [
           RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
+              onPressed: () { Navigator.of(context).pop(); },
               child: Text('Cerrar'))
         ],
       );

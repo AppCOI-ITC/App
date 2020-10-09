@@ -11,9 +11,7 @@ class Cuestionario extends StatefulWidget {
 }
 
 class _CuestionarioState extends State<Cuestionario> {
-  // bool flag_eleccion = false;
-  final CollectionReference collectionBD =
-      FirebaseFirestore.instance.collection('DataUsuarios');
+  final CollectionReference collectionBD = FirebaseFirestore.instance.collection('DataUsuarios');
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
 
@@ -26,55 +24,38 @@ class _CuestionarioState extends State<Cuestionario> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Text('¿Tuvo fiebre hoy?',
-            style: TextStyle(
-              fontSize: 30.0,
-            )),
-        RaisedButton(
-            padding: EdgeInsets.all(40.0),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50.0),
-                side: BorderSide(color: Colors.blue[200])),
-            onPressed: () {
-              print('Sí');
-              /*setState(() {
-                flag_eleccion = true;
-              });*/
-              ref = collectionBD.doc(uid).collection('Reportes').doc();
-              ref
-                  .collection('Cuestionarios')
-                  .add({'Respuesta': 'Sí', 'Pregunta': '¿Tuvo fiebre hoy?'});
-              cambiodePagina(context);
-            },
-            child: Text('Sí',
-                style: TextStyle(
-                  fontSize: 30.0,
-                ))),
-        RaisedButton(
-            padding: EdgeInsets.all(40.0),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(50.0),
-                side: BorderSide(color: Colors.blue[200])),
-            onPressed: () {
-              print('No');
-              /*setState(() {
-                flag_eleccion = true;
-              });*/
-              ref = collectionBD.doc(uid).collection('Reportes').doc();
-              ref
-                  .collection('Cuestionarios')
-                  .add({'Respuesta': 'Sí', 'Pregunta': '¿Tuvo fiebre hoy?'});
-              cambiodePagina(context);
-            },
-            child: Text('No',
-                style: TextStyle(
-                  fontSize: 30.0,
-                )))
-      ],
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            Text('¿Tuvo fiebre hoy?',style: TextStyle(fontSize: 30.0,)),
+            RaisedButton(
+                padding: EdgeInsets.all(40.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                    side: BorderSide(color: Colors.blue[200])),
+                onPressed: () {
+                  print('Sí');
+                  ref = collectionBD.doc(uid).collection('Reportes').doc();
+                  ref.collection('Cuestionarios').add({'Respuesta': 'Sí', 'Pregunta': '¿Tuvo fiebre hoy?'});
+                  cambiodePagina(context);
+                },
+                child: Text('Sí',style: TextStyle(fontSize: 30.0))
+            ),
+            RaisedButton(
+                padding: EdgeInsets.all(40.0),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50.0),
+                    side: BorderSide(color: Colors.blue[200])),
+                onPressed: () {
+                  print('No');
+                  ref = collectionBD.doc(uid).collection('Reportes').doc();
+                  ref.collection('Cuestionarios').add({'Respuesta': 'Sí', 'Pregunta': '¿Tuvo fiebre hoy?'});
+                  cambiodePagina(context);
+                },
+                child: Text('No',style: TextStyle(fontSize: 30.0,))
+            )
+          ],
     )));
   }
 }
