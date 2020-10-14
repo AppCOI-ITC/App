@@ -8,8 +8,8 @@ import 'package:flutter_app/models/userR.dart';
 // mail: test@gmail.com
 // Clave: test1234
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await Firebase.initializeApp();
   runApp(MyApp());
 }
 
