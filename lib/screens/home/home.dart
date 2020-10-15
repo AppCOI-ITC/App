@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_app/Calendario/calendario.dart';
 import 'package:flutter_app/screens/calendario/pantalla_calendario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
+import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 
 
@@ -133,7 +134,7 @@ class Home extends StatelessWidget {
                 label: Text('Cuestionario Excepcional', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
                 onPressed: () {
                   print('en proceso');
-                  proceso(context);
+                  advertencia(context);
                 },
               ),
             ),
@@ -167,4 +168,36 @@ void abrirCalendario(context){
   Route route =MaterialPageRoute(builder: (bc) => PantallaCalendario());
   //se hace aparecer la ventana Cuestionario2
   Navigator.of(context).push(route);
+}
+
+//cambio a la pantalla del cuestionario excepcional
+void pantallaCE(context) {
+  Route route = MaterialPageRoute(builder: (bc) => CExcepcional());
+  Navigator.of(context).push(route);
+}
+
+//cuadro de "advertencia"
+void advertencia(context) {
+  showDialog(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text('Advertencia'),
+        content: Text('Esta seguro de querer realizar un cuestionario excepcional'),
+        actions: [
+          RaisedButton(
+            onPressed: () { Navigator.of(context).pop(); },
+            child: Text('No')
+          ),
+          RaisedButton(
+            onPressed: () {
+              Navigator.of(context).pop();
+              pantallaCE(context);
+            },
+            child: Text('Si'),
+          )
+        ],
+      );
+    }
+  );
 }
