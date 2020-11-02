@@ -6,11 +6,16 @@ import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   Calendario calendario=new Calendario();
 
   final AuthService _auth = AuthService();
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,11 +41,11 @@ class Home extends StatelessWidget {
               onTap: (){
                 print('en proceso...');
                 proceso(context);
-              },    
+              },
             ),
             ListTile(
               leading: Icon(Icons.exit_to_app),
-              title: Text('cerrar sesion'), 
+              title: Text('cerrar sesion'),
               onTap: () async {
                 await _auth.signOut();
               }
@@ -61,7 +66,7 @@ class Home extends StatelessWidget {
       //===================================
       //==============BODY=================
       //===================================
-      body: 
+      body:
       Container(
         color: Colors.grey[100],
         child: Column(
@@ -82,9 +87,67 @@ class Home extends StatelessWidget {
                   Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
                   Navigator.of(context).push(route);
                 },
-              ), 
+              ),
             ),
+            //-------------------Calendario-----
             Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlatButton(
+                  onPressed: (){
+                    setState(() {
+                      calendario=Calendario(cargarDias: true,);
+                    });
+                  },
+                  child: Text('recuoperar Datos'),
+                  color: Colors.blue,
+                ),
+                SizedBox(width: 10,),
+                FlatButton(
+                  onPressed: (){
+                    setState(() {
+                      calendario=Calendario(diasWidget: [Dia(fecha: DateTime(2020,1,1,00,00),eventos: [
+                        Eventos(titulo: 'evento de prueba',hora: DateTime(2020,1,1,00,00),lugar: 'chacarita',tipo: 'semanal')]),
+                        Dia(fecha: DateTime(2020,1,2,00,30),eventos: [
+                          Eventos(titulo: 'evento de prueba2',hora: DateTime(2020,1,2,00,30),lugar: 'chacarito',tipo: 'diario')])],reemplazarDias: true,);
+                    });
+                  },
+                  child: Text('reemplazar Lista'),
+                  color: Colors.amber,
+                ),
+              ],
+            ),
+
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                FlatButton(
+                  onPressed: ({ titulo: 'Evento agregado', hora:'7:00',lugar: 'Cipolletti', frecuencia: 'semanal'}){
+                    setState(() {
+                      //Acá está lo que te decía de crear y reemplazar
+                      calendario=Calendario(add: true, fechaYhora: DateTime(2020,3,8,17,30),);
+                    });
+                  },
+                  color: Colors.green,
+                  child: Text('agregar 8 M'),
+                ),
+                SizedBox(width: 10,),
+                FlatButton(
+                  onPressed: ({ titulo: 'Evento agregado', hora:'7:00',lugar: 'Cipolletti', frecuencia: 'semanal'}){
+                    setState(() {
+                      //Acá está lo que te decía de crear y reemplazar
+                      calendario=Calendario(add: true, fechaYhora: DateTime(2020,3,5,12,30),);
+                    });
+                  },
+                  color: Colors.green,
+                  child: Text('agregar 5 M'),
+                ),
+              ],
+            ),
+            //Se muestra el objeto calendario creado al principio
+            calendario,
+            /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 //=====BOTON->Reportes===============
@@ -121,7 +184,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
               ],
-            ),
+            ),*/
             //=====BOTON->Cuestionario excepcional===
             SizedBox(
               height: 100.0,
