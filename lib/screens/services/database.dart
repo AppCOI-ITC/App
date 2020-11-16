@@ -6,18 +6,24 @@ class DatabaseService {
   DatabaseService({ this.uid});
 
   // collection reference
-  final CollectionReference collectionBD = FirebaseFirestore.instance.collection('DataUsuarios');
+  final CollectionReference collectionData = FirebaseFirestore.instance.collection('DataUsuarios');
+  final CollectionReference collectionRespuestas = FirebaseFirestore.instance.collection('Respuestas');
 
   Future updateUserData(String email,String nombre, int documento) async {
-    return await collectionBD.doc(uid).set({
+    createTree(documento, nombre);
+    return await collectionData.doc(uid).set({
       'email': email,
       'nombre': nombre,
       'documento': documento,
     });
   }
 
+  Future createTree(int dni, String nombre) async {
+    String dniN = dni.toString() + "-" + nombre[0];
+    return await collectionRespuestas.doc(dniN).set({});
+  }
   //get stream 
   Stream<QuerySnapshot> get data {
-    return collectionBD.snapshots();
+    return collectionData.snapshots();
   }
 }
