@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Calendario/calendario.dart';
-import 'package:flutter_app/screens/calendario/pantalla_calendario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
@@ -12,6 +11,7 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  //Se crea un objeto de tipo calendario
   Calendario calendario=new Calendario();
 
   final AuthService _auth = AuthService();
@@ -90,62 +90,6 @@ class _HomeState extends State<Home> {
               ),
             ),
             //-------------------Calendario-----
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FlatButton(
-                  onPressed: (){
-                    setState(() {
-                      calendario=Calendario(cargarDias: true,);
-                    });
-                  },
-                  child: Text('recuoperar Datos'),
-                  color: Colors.blue,
-                ),
-                SizedBox(width: 10,),
-                FlatButton(
-                  onPressed: (){
-                    setState(() {
-                      calendario=Calendario(diasWidget: [Dia(fecha: DateTime(2020,1,1,00,00),eventos: [
-                        Eventos(titulo: 'evento de prueba',hora: DateTime(2020,1,1,00,00),lugar: 'chacarita',tipo: 'semanal')]),
-                        Dia(fecha: DateTime(2020,1,2,00,30),eventos: [
-                          Eventos(titulo: 'evento de prueba2',hora: DateTime(2020,1,2,00,30),lugar: 'chacarito',tipo: 'diario')])],reemplazarDias: true,);
-                    });
-                  },
-                  child: Text('reemplazar Lista'),
-                  color: Colors.amber,
-                ),
-              ],
-            ),
-
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FlatButton(
-                  onPressed: ({ titulo: 'Evento agregado', hora:'7:00',lugar: 'Cipolletti', frecuencia: 'semanal'}){
-                    setState(() {
-                      //Acá está lo que te decía de crear y reemplazar
-                      calendario=Calendario(add: true, fechaYhora: DateTime(2020,3,8,17,30),);
-                    });
-                  },
-                  color: Colors.green,
-                  child: Text('agregar 8 M'),
-                ),
-                SizedBox(width: 10,),
-                FlatButton(
-                  onPressed: ({ titulo: 'Evento agregado', hora:'7:00',lugar: 'Cipolletti', frecuencia: 'semanal'}){
-                    setState(() {
-                      //Acá está lo que te decía de crear y reemplazar
-                      calendario=Calendario(add: true, fechaYhora: DateTime(2020,3,5,12,30),);
-                    });
-                  },
-                  color: Colors.green,
-                  child: Text('agregar 5 M'),
-                ),
-              ],
-            ),
-            //Se muestra el objeto calendario creado al principio
             calendario,
             /*Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -225,12 +169,6 @@ void proceso(context) {
       );
     }
   );
-}
-void abrirCalendario(context){
-  //se configura la ruta
-  Route route =MaterialPageRoute(builder: (bc) => PantallaCalendario());
-  //se hace aparecer la ventana Cuestionario2
-  Navigator.of(context).push(route);
 }
 
 //cambio a la pantalla del cuestionario excepcional
