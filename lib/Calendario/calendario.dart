@@ -213,7 +213,7 @@ class Eventos {
     if (tipo == 'diario') {
       color = Colors.blue[200];
     } else if (tipo == 'semanal') {
-      color = Colors.green[200];
+      color = Color(0xffFFDBC5);
     }
   }
 }

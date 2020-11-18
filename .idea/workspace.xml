@@ -6,17 +6,7 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="148f06ff-0a53-4fe7-813b-1163f06fca49" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/fonts/Nunito_Sans/NunitoSans-Bold.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/Nunito_Sans/NunitoSans-BoldItalic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/Nunito_Sans/NunitoSans-Italic.ttf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/fonts/Nunito_Sans/NunitoSans-Regular.ttf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/Calendario/calendario.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Calendario/calendario.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/screens/calendario/visualizar_calendario.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/calendario/visualizar_calendario.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
-    </list>
+    <list default="true" id="148f06ff-0a53-4fe7-813b-1163f06fca49" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
