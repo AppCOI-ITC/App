@@ -298,6 +298,7 @@ class _VerEventosState extends State<VerEventos> {
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
+              fontFamily: 'NunitoSans',
             ),
           ),
           //Espécie de separador
@@ -315,20 +316,26 @@ class _VerEventosState extends State<VerEventos> {
                     children: [
                       Text(
                         dias[dia].eventos[evento].titulo,
-                        style: TextStyle(),
+                        style: TextStyle(
+                          fontFamily: 'NunitoSans',
+                        ),
                       ),
                       Row(
                         children: [
                           Text(
                             '${dias[dia].eventos[evento].hora.hour}:${dias[dia].eventos[evento].hora.minute}',
-                            style: TextStyle(),
+                            style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                            ),
                           ),
                           SizedBox(
                             width: 10,
                           ),
                           Text(
                             dias[dia].eventos[evento].lugar,
-                            style: TextStyle(),
+                            style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                            ),
                           ),
                         ],
                       ),
@@ -341,7 +348,11 @@ class _VerEventosState extends State<VerEventos> {
                         });
                       },
                       icon: Icon(Icons.delete),
-                      label: Text('Borrar')),
+                      label: Text('Borrar',
+                      style: TextStyle(
+                        fontFamily: 'NunitoSans',
+                        fontWeight: FontWeight.bold,
+                      ),)),
                 ),
               );
             },

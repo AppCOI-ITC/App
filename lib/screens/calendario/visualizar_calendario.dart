@@ -41,6 +41,30 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
               flex: 5,
               child: TableCalendar(
                 calendarController: _controller,
+                headerStyle: HeaderStyle(
+                    titleTextStyle: TextStyle(
+                      fontFamily: 'NunitoSans',
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18,
+                    )
+                ),
+                calendarStyle: CalendarStyle(
+                    todayColor: Color(0xffF26522),
+                    selectedStyle: TextStyle(
+                      fontFamily: 'NunitoSans',
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
+                    selectedColor: Color(0xffF26522),
+                    weekdayStyle: TextStyle(
+                      fontFamily: 'NunitoSans',
+                    ),
+                    weekendStyle: TextStyle(
+                        fontFamily: 'NunitoSans',
+                        color: Colors.black,
+                        fontWeight: FontWeight.bold
+                    )
+                ),
                 onDaySelected: (prueba3, prueba1, prueba2) {
                   prueba3 = _controller.selectedDay;
                   print(prueba3);
@@ -62,13 +86,14 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
               child: Container(
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 3),
                   padding: EdgeInsets.all(3),
-                  color: Colors.blue[100],
+                  color: Color(0xffFFEDE1),
                   child: Center(child: secundario)),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Color(0xff14539A),
         onPressed: () {
           setState(() {
             print('me ofendistes regacho');
