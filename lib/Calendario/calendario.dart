@@ -336,7 +336,7 @@ class _VerEventosState extends State<VerEventos> {
   List <Dia> dias=[];
   int dia=0;
 
-  //Método choriado
+  //Método choriado   //<++++++++++++++++++++++++++++++++++++++=SACAR ESTO
   void ordenarDia(Dia agregar){
     dia=0;
     bool distinto=true;//Indica si el día ya existe o no

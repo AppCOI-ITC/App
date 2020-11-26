@@ -29,10 +29,18 @@ class Plantillas {
       color: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
       child: Padding(
         padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
-        child: Container(
-          height: 1.2,
-          color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: 1.5,
+              color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+            ),
+            SizedBox(
+              height: 50.0,
+            )
+          ],
+        )
       ),
     );
   }

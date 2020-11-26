@@ -71,6 +71,7 @@ class AuthService {
   // sign out
   Future signOut() async {
     try {
+      print('Cerrando sesion');
       return await _auth.signOut();
     } catch(e){
       print(e.toString());

@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_app/models/plantillas.dart';
 import 'package:flutter_app/shared/loading.dart';
-
+import 'package:flutter_app/custom_icons_icons.dart';
 DocumentReference ref;
 
 class Cuestionario extends StatefulWidget {
@@ -35,6 +35,7 @@ class _CuestionarioState extends State<Cuestionario> {
   
   bool cuestionarioF = false;
   int index = 0;
+  final reset = <bool>[false, false, false, false, false, false, false];
   final isSelected = <bool>[false, false, false, false, false, false, false];
   List<int> respuestasCuest = List.filled(30, -1);
 
@@ -53,7 +54,6 @@ class _CuestionarioState extends State<Cuestionario> {
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     List<Widget> crearBotones(int cant) {
-      int valor;
       List listings = List<Widget>();
       List<String> respuestas = [];
       respuestas = ["1", "2", "3", "4", "5", "6", "7"];
@@ -63,21 +63,23 @@ class _CuestionarioState extends State<Cuestionario> {
       for (int i = 0; i < cant; i++) {
         listings.add(
           Padding(
-            padding: EdgeInsets.all(10),
+            //10
+            padding: EdgeInsets.all(2.5),
             child: SizedBox.fromSize(
-              size: Size(40, 40),
+              //40,40
+              size: Size(50, 50),
               child: MaterialButton(
                 elevation: 0.0,
-                shape: CircleBorder(side: BorderSide(width: 3.0,color: Color.fromARGB(255, 0x14, 0x53, 0x9A))),
+                shape: CircleBorder(side: BorderSide(width: 1.5,color: Color.fromARGB(255, 0x14, 0x53, 0x9A))),
                 textColor: !isSelected[i] ? Color.fromARGB(255, 0x14, 0x53, 0x9A) : Colors.white,
                 color: !isSelected[i] ? Colors.black.withOpacity(0.05) : Color.fromARGB(255, 0x14, 0x53, 0x9A),
                 child: Padding(
                   padding: const EdgeInsets.all(5),
-                  child: Text(respuestas[i],textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold),),
+                  child: Text(respuestas[i],textAlign: TextAlign.center,style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0),),
                 ),
                 onPressed: () {
                   setState(() {
-                    isSelected.setAll(0, [false,false,false,false,false,false,false]);
+                    isSelected.setAll(0, reset);
                     isSelected[i] = true;
                   });
                   respuestasCuest[index] = i;
@@ -156,33 +158,61 @@ class _CuestionarioState extends State<Cuestionario> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          IconButton(icon:  Icon(Icons.arrow_back), onPressed: (){setState(() {
+                          IconButton(icon:  Icon(CustomIcons.flecha1), onPressed: (){setState(() {
                           if(index-1 > -1) {
                             index--;
-                            isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                            isSelected[respuestasCuest[index]] = true;
+                            isSelected.setAll(0, reset);
+                            if (respuestasCuest[index] != -1) {
+                                            isSelected[respuestasCuest[index]] =
+                                                true;
+                            }
                           }
                         });}),
-                          IconButton(icon: Icon(Icons.arrow_upward), onPressed: () async {
-                            String dniN = await recuperar();
-                            FirebaseFirestore.instance
-                            .collection('Respuestas')
-                            .doc(dniN)    
-                            .update(creadorMaps(respuestasCuest));
-                            print(respuestasCuest);
-                          }),
-                          IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){setState(() {
-                          if(index+1 < 30) {
-                            index++;
-                            if(respuestasCuest[index] != -1){
-                              isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                              isSelected[respuestasCuest[index]] = true;
-                            }else{
-                              isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                            }  
-                          }
-                          if((index==29) && (respuestasCuest.indexOf(-1) == -1)) cuestionarioF = true;
-                        });})
+                          IconButton(
+                            
+                            icon: Icon(Icons.arrow_upward), 
+                            onPressed: () async {
+                              String dniN = await recuperar();
+                              FirebaseFirestore.instance
+                              .collection('Respuestas')
+                              .doc(dniN)    
+                              .update(creadorMaps(respuestasCuest));
+                              print(respuestasCuest);
+                            }
+                            // FirebaseFirestore.instance
+                            //     .collection('Respuestas')
+                            //     .doc(dniN)
+                            //     .get()
+                            //     .then((doc) {
+                            //   if (doc.exists) {
+                            //     FirebaseFirestore.instance
+                            //         .collection('Respuestas')
+                            //         .doc(dniN)
+                            //         .update(
+                            //             creadorMaps(respuestasCuest));
+                            //   } else {
+                            //     FirebaseFirestore.instance
+                            //         .collection('Respuestas')
+                            //         .doc(dniN)
+                            //         .set(
+                            //             creadorMaps(respuestasCuest));
+                            //   }
+                          ),
+                          IconButton(
+                            icon: Icon(CustomIcons.flecha), 
+                            onPressed: (){setState(() {
+                              if(index+1 < 30) {
+                                index++;
+                                if(respuestasCuest[index] != -1){
+                                  isSelected.setAll(0, reset);
+                                  isSelected[respuestasCuest[index]] = true;
+                                }else{
+                                  isSelected.setAll(0, reset);
+                                }  
+                              }
+                              if((index==29) && (respuestasCuest.indexOf(-1) == -1)) cuestionarioF = true;
+                            });}
+                          )
                         ],
                       ) 
                     ],
@@ -201,25 +231,32 @@ class _CuestionarioState extends State<Cuestionario> {
                       Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        IconButton(icon:  Icon(Icons.arrow_back), onPressed: (){setState(() {
+                        IconButton(icon:  Icon(CustomIcons.flecha1), onPressed: (){setState(() {
                           if(index-1 > -1) {
                             index--;
-                            isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                            isSelected[respuestasCuest[index]] = true;
+                            isSelected.setAll(0, reset);
+                            if (respuestasCuest[index] != -1) {
+                                            isSelected[respuestasCuest[index]] =
+                                                true;
+                            }
                           }
                         });}),
-                        IconButton(icon: Icon(Icons.arrow_forward), onPressed: (){setState(() {
-                          if(index+1 < 30) {
-                            index++;
-                            if(respuestasCuest[index] != -1){
-                              isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                              isSelected[respuestasCuest[index]] = true;
-                            }else{
-                              isSelected.setAll(0, [false,false,false,false,false,false,false]);
-                            }  
-                          }
-                          if((index==29) && (respuestasCuest.indexOf(-1) == -1)) cuestionarioF = true;
-                        });})
+                        IconButton(
+                          icon: Icon(CustomIcons.flecha), 
+                          onPressed: (){setState(() {
+                            if(index+1 < 30) {
+                              index++;
+                              //navegacion();
+                              if(respuestasCuest[index] != -1){
+                                isSelected.setAll(0, reset);
+                                isSelected[respuestasCuest[index]] = true;
+                              }else{
+                                isSelected.setAll(0, reset);
+                              }  
+                            }
+                            if((index==29) && (respuestasCuest.indexOf(-1) == -1)) cuestionarioF = true;
+                          });}
+                        )
                       ],
                     ),
                     ],
@@ -231,7 +268,6 @@ class _CuestionarioState extends State<Cuestionario> {
           } catch (e) {
             snapshot.hasError ? Text("Error de data") : null;
           }
-
     });
   }
 }
