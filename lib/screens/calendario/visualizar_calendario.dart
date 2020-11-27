@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/Calendario/calendario.dart';
 import 'package:numberpicker/numberpicker.dart';
-
+//import 'package:world_tipe/services/calendario.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 /*
 Acá se va a mostrar un calendario con forma de tabla que vamos a importar
 abajo de eso se van a mostrar dos cosas
  */
+//StatefulWidget secundario;
+//SelectorDeHora sel;
+
 class VisualizarCalendario extends StatefulWidget {
   @override
   _VisualizarCalendarioState createState() => _VisualizarCalendarioState();
@@ -18,20 +21,21 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
   List<dynamic> prueba2 = [];
   DateTime prueba3 = DateTime.now();
   CalendarController _controller;
-
+  StatefulWidget secundario = VerEventos(fecha: DateTime.now());
+  SelectorDeHora sel = SelectorDeHora(fecha: DateTime.now());
   @override
   void initState() {
     super.initState();
+    //secundario  =  VerEventos(fecha: DateTime.now());
+    //sel = SelectorDeHora(fecha: DateTime.now());
     _controller = CalendarController();
   }
 
-  List<Dia> hi = [];
-  StatefulWidget secundario = VerEventos(fecha: DateTime.now());
-  SelectorDeHora sel = SelectorDeHora(fecha: DateTime.now());
-
+  //List<Dia> hi = [];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xffFFEDE1),
       appBar: AppBar(),
       body: Padding(
         padding: EdgeInsets.all(3),
@@ -46,8 +50,7 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
                       fontFamily: 'NunitoSans',
                       fontWeight: FontWeight.bold,
                       fontSize: 18,
-                    )
-                ),
+                    )),
                 calendarStyle: CalendarStyle(
                     todayColor: Color(0xffF26522),
                     selectedStyle: TextStyle(
@@ -62,15 +65,12 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
                     weekendStyle: TextStyle(
                         fontFamily: 'NunitoSans',
                         color: Colors.black,
-                        fontWeight: FontWeight.bold
-                    )
-                ),
+                        fontWeight: FontWeight.bold)),
                 onDaySelected: (prueba3, prueba1, prueba2) {
                   prueba3 = _controller.selectedDay;
                   print(prueba3);
                   setState(() {
                     secundario = VerEventos(
-                      /*listaEventos: hi,*/
                       fecha: prueba3,
                     );
                     sel = SelectorDeHora(
@@ -84,9 +84,9 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
             Expanded(
               flex: 5,
               child: Container(
+                  color: Color(0xffFFEDE1),
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 3),
                   padding: EdgeInsets.all(3),
-                  color: Color(0xffFFEDE1),
                   child: Center(child: secundario)),
             ),
           ],
@@ -96,7 +96,6 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
         backgroundColor: Color(0xff14539A),
         onPressed: () {
           setState(() {
-            print('me ofendistes regacho');
             secundario = sel;
           });
         },
@@ -188,13 +187,16 @@ class _SelectorDeHoraState extends State<SelectorDeHora> {
           FlatButton(
             onPressed: () {
               horaYminutos =
-                  new DateTime(DateTime.now().year, m, d, hora, minutos);
+              new DateTime(widget.fecha.year/*DateTime
+                  .now()
+                  .year*/, m, d, hora, minutos);
               print(horaYminutos);
               addEvento(
                   fecha: horaYminutos,
                   titulo: titulo.text,
                   lugar: 'San Martín',
                   tipo: 'semanal');
+              //secundario=VerEventos(fecha: horaYminutos,);
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (bc) => VisualizarCalendario()));
             },

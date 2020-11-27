@@ -6,7 +6,30 @@
     </shared>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="148f06ff-0a53-4fe7-813b-1163f06fca49" name="Default Changelist" comment="" />
+    <list default="true" id="148f06ff-0a53-4fe7-813b-1163f06fca49" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/fonts/CustomIcons.ttf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/custom_icons_icons.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/models/plantillas.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.flutter-plugins-dependencies" beforeDir="false" afterPath="$PROJECT_DIR$/.flutter-plugins-dependencies" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/android/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/android/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Calendario/calendario.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Calendario/calendario.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authenticate/authenticate.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authenticate/authenticate.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authenticate/register.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authenticate/register.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/authenticate/sign_in.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/calendario/visualizar_calendario.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/calendario/visualizar_calendario.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/cuestionario/cuestionario.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/cuestionario/cuestionario.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/cuestionario/cuestionario2.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/services/auth.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/services/auth.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/wrapper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/wrapper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/shared/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/shared/constants.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -32,15 +55,18 @@
   <component name="PropertiesComponent">
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="io.flutter.reload.alreadyRun" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/fonts/Nunito_Sans" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/screens/calendario" />
     <property name="settings.editor.selected.configurable" value="flutter.settings" />
     <property name="show.migrate.to.gradle.popup" value="false" />
   </component>
   <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="A:\Documentos\ProyectosAndroid\Flutter\App\fonts" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="A:\Documentos\ProyectosAndroid\Flutter\App\fonts\Nunito_Sans" />
       <recent name="A:\Documentos\ProyectosAndroid\Flutter\App\lib\screens\calendario" />
       <recent name="A:\Documentos\ProyectosAndroid\Flutter\App\lib\Calendario" />
+      <recent name="A:\Documentos\ProyectosAndroid\Flutter\App\fonts\Nunito_Sans" />
     </key>
   </component>
   <component name="RunManager">
@@ -114,22 +140,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1605582269216" />
-    <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1605725521369">
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom" timestamp="1605728929030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605725521369" />
-    <state width="1491" height="210" key="GridCell.Tab.0.center" timestamp="1605725521369">
+    <state width="1491" height="210" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1605728929030" />
+    <state width="1491" height="210" key="GridCell.Tab.0.center" timestamp="1605728929030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605725521369" />
-    <state width="1491" height="210" key="GridCell.Tab.0.left" timestamp="1605725521369">
+    <state width="1491" height="210" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1605728929030" />
+    <state width="1491" height="210" key="GridCell.Tab.0.left" timestamp="1605728929029">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605725521369" />
-    <state width="1491" height="210" key="GridCell.Tab.0.right" timestamp="1605725521369">
+    <state width="1491" height="210" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1605728929029" />
+    <state width="1491" height="210" key="GridCell.Tab.0.right" timestamp="1605728929030">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1491" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605725521369" />
+    <state width="1491" height="210" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1605728929030" />
     <state x="555" y="58" key="SettingsEditor" timestamp="1604313821049">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/screens/calendario/visualizar_calendario.dart';
+//import 'package:world_tipe/pages/home.dart';
+//import 'package:world_tipe/pages/visualizar_calendario.dart';
 
 /*
 Notas:
@@ -126,8 +128,7 @@ void addEvento({fecha, titulo, lugar, tipo}) {
 
 class Calendario extends StatefulWidget {
   @override
-  _CalendarioState createState(/*[bool remove, String elDia]*/) =>
-      _CalendarioState();
+  _CalendarioState createState() => _CalendarioState();
 }
 
 class _CalendarioState extends State<Calendario> {
@@ -143,6 +144,7 @@ class _CalendarioState extends State<Calendario> {
 
   @override
   Widget build(BuildContext context) {
+    print('se reconstruyó el calendario');
     eliminarVacios();
     return Column(
       children: [
@@ -154,6 +156,7 @@ class _CalendarioState extends State<Calendario> {
                     builder: (bc) => VisualizarCalendario(
                         //diass: dias,
                         )));
+
             setState(() {});
           },
           color: Color(0xff14539A),
@@ -166,15 +169,12 @@ class _CalendarioState extends State<Calendario> {
         ),
         Container(
           height: 300,
-          color: Colors.white,
           margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
           padding: EdgeInsets.all(3),
           //List view que recorre los días
           child: ListView.builder(
               itemBuilder: (context, dia) {
-                return VerEventos(
-                  dia: dia,
-                );
+                return VerEventos(dia: dia);
               },
               itemCount: dias.length),
         ),
@@ -263,6 +263,7 @@ class VerEventos extends StatefulWidget {
 }
 
 class _VerEventosState extends State<VerEventos> {
+  List<Dia> dias1 = [];
   int dia = 0;
 
   void removeEvento(int dd, int ee) {
@@ -277,11 +278,20 @@ class _VerEventosState extends State<VerEventos> {
         dias = [];
       }
     }
-    setState(() {});
+    setState(() {
+      //Calendario().diasC=dias;
+      dias1 = dias;
+      /*Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+              builder: (bc) => Home(
+              )));*/
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    dias1 = dias;
     if (widget.porFecha == true) {
       print('día definido por fecha');
       dia = ordenarDia(Dia(fecha: widget.fecha, eventos: []));
@@ -293,70 +303,84 @@ class _VerEventosState extends State<VerEventos> {
       return Column(
         //fecha del día
         children: [
-          Text(
-            dias[dia].stFecha,
-            style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              fontFamily: 'NunitoSans',
+          Container(
+            margin: EdgeInsets.fromLTRB(5, 0, 0, 10),
+            padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black),
+              borderRadius: BorderRadius.circular(30),
+            ),
+            child: Text(
+              dias1[dia].stFecha,
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'NunitoSans',
+              ),
             ),
           ),
           //Espécie de separador
-          Text(
-              '--------------------------------------------------------------------------------------------'),
+          //Text(              '--------------------------------------------------------------------------------------------'),
           ListView.builder(
             itemBuilder: (context, evento) {
-              return Card(
-                color: dias[dia].eventos[evento].color,
-                child: ListTile(
-                  onTap: () {},
-                  //Muestra todos los datos del evento
-                  title: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        dias[dia].eventos[evento].titulo,
-                        style: TextStyle(
-                          fontFamily: 'NunitoSans',
-                        ),
-                      ),
-                      Row(
+              return Column(
+                children: [
+                  Text('${dias.length}'),
+                  Card(
+                    color: dias1[dia].eventos[evento].color,
+                    child: ListTile(
+                      onTap: () {},
+                      //Muestra todos los datos del evento
+                      title: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            '${dias[dia].eventos[evento].hora.hour}:${dias[dia].eventos[evento].hora.minute}',
+                            dias1[dia].eventos[evento].titulo,
                             style: TextStyle(
                               fontFamily: 'NunitoSans',
                             ),
                           ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            dias[dia].eventos[evento].lugar,
-                            style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                            ),
+                          Row(
+                            children: [
+                              Text(
+                                '${dias1[dia].eventos[evento].hora.hour}:${dias1[dia].eventos[evento].hora.minute}',
+                                style: TextStyle(
+                                  fontFamily: 'NunitoSans',
+                                ),
+                              ),
+                              SizedBox(
+                                width: 10,
+                              ),
+                              Text(
+                                dias1[dia].eventos[evento].lugar,
+                                style: TextStyle(
+                                  fontFamily: 'NunitoSans',
+                                ),
+                              ),
+                            ],
                           ),
                         ],
                       ),
-                    ],
+                      leading: FlatButton.icon(
+                          onPressed: () {
+                            setState(() {
+                              removeEvento(dia, evento);
+                            });
+                          },
+                          icon: Icon(Icons.delete),
+                          label: Text(
+                            'Borrar',
+                            style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontWeight: FontWeight.bold,
+                            ),
+                          )),
+                    ),
                   ),
-                  leading: FlatButton.icon(
-                      onPressed: () {
-                        setState(() {
-                          removeEvento(dia, evento);
-                        });
-                      },
-                      icon: Icon(Icons.delete),
-                      label: Text('Borrar',
-                      style: TextStyle(
-                        fontFamily: 'NunitoSans',
-                        fontWeight: FontWeight.bold,
-                      ),)),
-                ),
+                ],
               );
             },
-            itemCount: dias[dia].eventos.length,
+            itemCount: dias1[dia].eventos.length,
             physics: ClampingScrollPhysics(),
             //Esto modifica algo del scrool porque si no al tener dos ListView se traba
             shrinkWrap: true, //Esto permite anidar ListViews
