@@ -41,7 +41,7 @@ class _CuestionarioState extends State<Cuestionario> {
   int index = 0;
   final reset = <bool>[false, false, false, false, false, false, false];
   final isSelected = <bool>[false, false, false, false, false, false, false];
-  List<int> respuestasCuest = List.filled(30, -1);
+  List<int> respuestasCuest = List.filled(31, -1);
 
   Widget build(BuildContext context) {
     Future<String> recuperar() async {
@@ -155,7 +155,6 @@ class _CuestionarioState extends State<Cuestionario> {
       respuestas = ["1", "2", "3", "4", "5", "6", "7"];
       //if (cant == 4) respuestas = ["En absoluto", "Un poco", "Bastante", "Mucho"];
       //else respuestas = ["1", "2", "3", "4", "5", "6", "7"];
-
       for (int i = 0; i < cant; i++) {
         listings.add(Padding(
           //10
@@ -193,7 +192,38 @@ class _CuestionarioState extends State<Cuestionario> {
                   })),
         ));
       }
-      return listings;
+      double espacio;
+      if (listings.length == 4) {
+        espacio = 250;
+      } else if (listings.length == 7) {
+        espacio = 400;
+      }
+      List listafinal = List<Widget>();
+      listafinal.add(SizedBox(
+        child: Column(
+          children: [
+            Row(
+              children: listings,
+            ),
+            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+              SizedBox(
+                width: espacio,
+                child: Text("En absoluto",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                        fontWeight: FontWeight.bold)),
+              ),
+              Center(
+                child: Text("Mucho",
+                    style: TextStyle(
+                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                        fontWeight: FontWeight.bold)),
+              ),
+            ]),
+          ],
+        ),
+      ));
+      return listafinal;
     }
 
 //+++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -210,7 +240,8 @@ class _CuestionarioState extends State<Cuestionario> {
               int cant = int.parse(data[index][data[index].length - 1]);
               return Scaffold(
                 backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
-                appBar: Plantillas().formatoAppBar("Cuestionario"),
+                appBar: Plantillas().formatoAppBar(
+                    "Cuestionario - Pregunta ${index + 1} de 31"),
                 body: Center(
                   child: AspectRatio(
                     aspectRatio: 2 / 3,
@@ -236,9 +267,14 @@ class _CuestionarioState extends State<Cuestionario> {
                           //height: 300.0,
                           fit: BoxFit.fitWidth,
                           child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: crearBotones(cant),
-                          ),
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                              children: [
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Row(children: crearBotones(cant)),
+                                    ])
+                              ]),
                         ),
                       ],
                     ),
@@ -289,7 +325,7 @@ class _CuestionarioState extends State<Cuestionario> {
                               icon: Icon(CustomIcons.flecha),
                               onPressed: () {
                                 setState(() {
-                                  if (index + 1 < 30) {
+                                  if (index + 1 < 31) {
                                     index++;
                                     //navegacion();
                                     if (respuestasCuest[index] != -1) {

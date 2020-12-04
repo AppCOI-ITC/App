@@ -4,7 +4,6 @@ import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
 
-
 class Home extends StatefulWidget {
   @override
   _HomeState createState() => _HomeState();
@@ -12,8 +11,8 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   //Se crea un objeto de tipo calendario
-  Calendario calendario=new Calendario();
-
+  Calendario calendario = new Calendario();
+  bool excepcional = false;
   final AuthService _auth = AuthService();
 
   @override
@@ -27,29 +26,28 @@ class _HomeState extends State<Home> {
         elevation: 10.0,
         child: ListView(
           children: [
-            UserAccountsDrawerHeader(
+            /*UserAccountsDrawerHeader(
               accountName: Text('Nombre'),
               accountEmail: Text('campo de texto'),
               currentAccountPicture: CircleAvatar(
                 backgroundColor: Colors.grey[400],
               ),
-              decoration: BoxDecoration(color: Color.fromRGBO(109, 213, 250, 1)),
-            ),
+              decoration:
+                  BoxDecoration(color: Color.fromRGBO(109, 213, 250, 1)),
+            ), Actualmente no funciona así que quedacomentado */
             ListTile(
               leading: Icon(Icons.assistant_photo),
-              title: Text('reportar error'),
-              onTap: (){
-                print('en proceso...');
-                proceso(context);
+              title: Text('Reportar error'),
+              onTap: () {
+                pantallaCE(context, excepcional);
               },
             ),
             ListTile(
-              leading: Icon(Icons.exit_to_app),
-              title: Text('cerrar sesion'),
-              onTap: () async {
-                await _auth.signOut();
-              }
-            )
+                leading: Icon(Icons.exit_to_app),
+                title: Text('Cerrar sesión'),
+                onTap: () async {
+                  await _auth.signOut();
+                })
           ],
         ),
       ),
@@ -66,8 +64,7 @@ class _HomeState extends State<Home> {
       //===================================
       //==============BODY=================
       //===================================
-      body:
-      Container(
+      body: Container(
         color: Colors.grey[100],
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -79,12 +76,15 @@ class _HomeState extends State<Home> {
               child: RaisedButton(
                 color: Colors.green[300],
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15.0)
-                ),
+                    borderRadius: BorderRadius.circular(15.0)),
                 elevation: 6.0,
-                child: Text('Cuestionario',style: TextStyle(fontSize: 40.0),),
-                onPressed: (){
-                  Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
+                child: Text(
+                  'Cuestionario',
+                  style: TextStyle(fontSize: 40.0),
+                ),
+                onPressed: () {
+                  Route route =
+                      MaterialPageRoute(builder: (bc) => Cuestionario());
                   Navigator.of(context).push(route);
                 },
               ),
@@ -134,14 +134,25 @@ class _HomeState extends State<Home> {
               height: 100.0,
               width: 400.0,
               child: RaisedButton.icon(
-                icon: Icon(Icons.assignment_late,size: 35.0,),
+                icon: Icon(
+                  Icons.assignment_late,
+                  size: 35.0,
+                ),
                 elevation: 6.0,
-                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)),
                 color: Colors.red[400],
-                label: Text('Cuestionario Excepcional', style: TextStyle(fontSize: 25.0),textAlign: TextAlign.center,),
+                label: Text(
+                  'Cuestionario Excepcional',
+                  style: TextStyle(fontSize: 25.0),
+                  textAlign: TextAlign.center,
+                ),
                 onPressed: () {
-                  print('en proceso');
-                  advertencia(context);
+                  print('En proceso');
+                  setState(() {
+                    excepcional = true;
+                  });
+                  advertencia(context, excepcional);
                 },
               ),
             ),
@@ -154,51 +165,53 @@ class _HomeState extends State<Home> {
 
 void proceso(context) {
   showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('En proceso!'),
-        content: Text('Esta aplicación está en etapa de pruebas. Esta función será implementada en el futuro'),
-        actions: [
-          RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cerrar'))
-        ],
-      );
-    }
-  );
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('En proceso!'),
+          content: Text(
+              'Esta aplicación está en etapa de pruebas. Esta función será implementada en el futuro'),
+          actions: [
+            RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('Cerrar'))
+          ],
+        );
+      });
 }
 
 //cambio a la pantalla del cuestionario excepcional
-void pantallaCE(context) {
-  Route route = MaterialPageRoute(builder: (bc) => CExcepcional());
+void pantallaCE(context, bool excepcion) {
+  Route route =
+      MaterialPageRoute(builder: (bc) => CExcepcional(excepcional: excepcion));
   Navigator.of(context).push(route);
 }
 
 //cuadro de "advertencia"
-void advertencia(context) {
+void advertencia(context, excepcion) {
   showDialog(
-    context: context,
-    builder: (BuildContext context) {
-      return AlertDialog(
-        title: Text('Advertencia'),
-        content: Text('Esta seguro de querer realizar un cuestionario excepcional'),
-        actions: [
-          RaisedButton(
-            onPressed: () { Navigator.of(context).pop(); },
-            child: Text('No')
-          ),
-          RaisedButton(
-            onPressed: () {
-              Navigator.of(context).pop();
-              pantallaCE(context);
-            },
-            child: Text('Si'),
-          )
-        ],
-      );
-    }
-  );
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Advertencia'),
+          content: Text(
+              'Esta seguro de querer realizar un cuestionario excepcional'),
+          actions: [
+            RaisedButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: Text('No')),
+            RaisedButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                pantallaCE(context, excepcion);
+              },
+              child: Text('Si'),
+            )
+          ],
+        );
+      });
 }
