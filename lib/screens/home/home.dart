@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_app/Calendario/calendario.dart';
+// import 'package:flutter_app/custom_icons_icons.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
+import 'package:flutter_app/messagin.dart';
 
 class Home extends StatefulWidget {
   @override
@@ -17,6 +20,10 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    final _messaging = FBMessaging.instance;
+    _messaging.stream.listen((event) {
+      print('New Message: $event');
+    });
     return Scaffold(
       backgroundColor: Colors.blueGrey[50],
       //===================================
@@ -47,7 +54,24 @@ class _HomeState extends State<Home> {
                 title: Text('Cerrar sesión'),
                 onTap: () async {
                   await _auth.signOut();
-                })
+                }),
+            ListTile(
+              leading: Icon(Icons.ac_unit),
+              title: Text('Notificaciones'),
+              onTap: () {
+                final _messaging = FBMessaging.instance;
+                  _messaging
+                  .init()
+                    .then((_) async {
+                    await _messaging
+                    .requestPermission()
+                    .then((_) async {
+                      final _token = await _messaging.getToken();
+                      print('Token: $_token');
+                      });
+                  });
+              },
+            )
           ],
         ),
       ),
@@ -91,44 +115,6 @@ class _HomeState extends State<Home> {
             ),
             //-------------------Calendario-----
             calendario,
-            /*Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                //=====BOTON->Reportes===============
-                SizedBox(
-                  height: 50.0,
-                  width: 175.0,
-                  child: RaisedButton.icon(
-                    icon: Icon(Icons.receipt),
-                    elevation: 6.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                    color: Colors.green[300],
-                    label: Text('Reportes', style: TextStyle(fontSize: 23.0)),
-                    onPressed: () {
-                     print('en proceso');
-                      proceso(context);
-                   },
-                  ),
-                ),
-                //=====BOTON->Calendario=============
-                SizedBox(
-                  height: 50.0,
-                  width: 175.0,
-                  child: RaisedButton.icon(
-                    icon: Icon(Icons.calendar_today),
-                    elevation: 6.0,
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-                    label: Text('Calendario', style: TextStyle(fontSize: 22.0)),
-                    color: Colors.green[300],
-                    onPressed: () {
-                      abrirCalendario(context);
-                     //print('en proceso');
-                      //proceso(context);
-                   },
-                  ),
-                ),
-              ],
-            ),*/
             //=====BOTON->Cuestionario excepcional===
             SizedBox(
               height: 100.0,
@@ -215,3 +201,43 @@ void advertencia(context, excepcion) {
         );
       });
 }
+
+
+/*Row(
+  mainAxisAlignment: MainAxisAlignment.spaceAround,
+  children: [
+    //=====BOTON->Reportes===============
+    SizedBox(
+      height: 50.0,
+      width: 175.0,
+      child: RaisedButton.icon(
+        icon: Icon(Icons.receipt),
+        elevation: 6.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        color: Colors.green[300],
+        label: Text('Reportes', style: TextStyle(fontSize: 23.0)),
+        onPressed: () {
+          print('en proceso');
+          proceso(context);
+        },
+      ),
+    ),
+    //=====BOTON->Calendario=============
+    SizedBox(
+      height: 50.0,
+      width: 175.0,
+      child: RaisedButton.icon(
+        icon: Icon(Icons.calendar_today),
+        elevation: 6.0,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+        label: Text('Calendario', style: TextStyle(fontSize: 22.0)),
+        color: Colors.green[300],
+        onPressed: () {
+          abrirCalendario(context);
+          //print('en proceso');
+          //proceso(context);
+        },
+      ),
+    ),
+  ],
+),*/
