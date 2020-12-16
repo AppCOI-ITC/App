@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/custom_icons_icons.dart';
 import 'package:flutter_app/screens/calendario/visualizar_calendario.dart';
 //import 'package:world_tipe/pages/home.dart';
 //import 'package:world_tipe/pages/visualizar_calendario.dart';
@@ -148,28 +149,16 @@ class _CalendarioState extends State<Calendario> {
     eliminarVacios();
     return Column(
       children: [
-        FlatButton(
-          onPressed: () async {
-            await Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (bc) => VisualizarCalendario(
-                        //diass: dias,
-                        )));
-
-            setState(() {});
-          },
-          color: Color(0xff14539A),
-          child: Text(
-            'Calendario Extendido',
-            style: TextStyle(
-              color: Color(0xffF26522),
-            ),
-          ),
-        ),
         Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              topLeft:Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            color: Color.fromARGB(150, 0xFF, 0xFF, 0xFF),
+          ),
           height: 300,
-          margin: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+          margin: EdgeInsets.only(top:10.0,left: 20.0,right: 20.0),
           padding: EdgeInsets.all(3),
           //List view que recorre los días
           child: ListView.builder(
@@ -177,6 +166,50 @@ class _CalendarioState extends State<Calendario> {
                 return VerEventos(dia: dia);
               },
               itemCount: dias.length),
+        ),
+        Row(
+          children: [
+            Flexible( 
+              flex: 1, 
+              fit: FlexFit.tight, 
+              child: Container( 
+                height: 30.0, 
+                margin: EdgeInsets.only(left: 20.0, right: 20.0, bottom: 10.0),
+                decoration: BoxDecoration( 
+                  borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(30.0),
+                    bottomRight: Radius.circular(30.0)
+                  ), 
+                  color: Color.fromARGB(150, 0xFF, 0xFF, 0xFF), 
+                ),
+                child: FlatButton.icon( 
+                  splashColor: Colors.transparent,
+                  hoverColor: Colors.transparent,
+                  icon: Icon(
+                    CustomIcons.calendario,
+                    color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                  ), 
+                  label: Text(
+                    'Calendario',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        //diass: dias,
+                        builder: (bc) => VisualizarCalendario()
+                      )
+                    );
+                    setState(() {}); //++++++++++++++++++++++?
+                  },
+                  ), 
+              ), 
+            ),
+          ],
         ),
       ],
     );
@@ -308,7 +341,7 @@ class _VerEventosState extends State<VerEventos> {
             padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.black),
-              borderRadius: BorderRadius.circular(30),
+              borderRadius: BorderRadius.circular(30.0),
             ),
             child: Text(
               dias1[dia].stFecha,
@@ -327,6 +360,7 @@ class _VerEventosState extends State<VerEventos> {
                 children: [
                   Text('${dias.length}'),
                   Card(
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                     color: dias1[dia].eventos[evento].color,
                     child: ListTile(
                       onTap: () {},
@@ -334,49 +368,48 @@ class _VerEventosState extends State<VerEventos> {
                       title: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
-                            dias1[dia].eventos[evento].titulo,
-                            style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                            ),
-                          ),
                           Row(
                             children: [
                               Text(
-                                '${dias1[dia].eventos[evento].hora.hour}:${dias1[dia].eventos[evento].hora.minute}',
+                                '${dias1[dia].eventos[evento].hora.hour}:${dias1[dia].eventos[evento].hora.minute} hs.',
                                 style: TextStyle(
                                   fontFamily: 'NunitoSans',
+                                  fontWeight: FontWeight.bold,
+                                  color: Color.fromARGB(255, 0x14, 0x53, 0x9A)
                                 ),
                               ),
                               SizedBox(
                                 width: 10,
                               ),
-                              Text(
-                                dias1[dia].eventos[evento].lugar,
-                                style: TextStyle(
-                                  fontFamily: 'NunitoSans',
-                                ),
-                              ),
+                              // Text(
+                              //   dias1[dia].eventos[evento].lugar,
+                              //   style: TextStyle(
+                              //     fontFamily: 'NunitoSans',
+                              //   ),
+                              // ),
                             ],
+                          ),
+                          Text(
+                            dias1[dia].eventos[evento].titulo,
+                            style: TextStyle(
+                              fontFamily: 'NunitoSans',
+                              fontWeight: FontWeight.bold,
+                              color: Color.fromARGB(255, 0x14, 0x53, 0x9A)
+                            ),
                           ),
                         ],
                       ),
-                      leading: FlatButton.icon(
+                      trailing: FlatButton.icon(
                           onPressed: () {
                             setState(() {
                               removeEvento(dia, evento);
                             });
                           },
-                          icon: Icon(Icons.delete),
-                          label: Text(
-                            'Borrar',
-                            style: TextStyle(
-                              fontFamily: 'NunitoSans',
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
+                          icon: Icon(CustomIcons.basura),
+                          label: Text(''),
+                      ),
                     ),
-                  ),
+                  )
                 ],
               );
             },

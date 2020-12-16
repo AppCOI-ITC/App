@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:html';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,8 +15,7 @@ class Cuestionario extends StatefulWidget {
 }
 
 class _CuestionarioState extends State<Cuestionario> {
-  final CollectionReference collectionBD =
-      FirebaseFirestore.instance.collection('DataUsuarios');
+  final CollectionReference collectionBD = FirebaseFirestore.instance.collection('DataUsuarios');
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
   get uid => auth.currentUser.uid;
@@ -205,20 +203,34 @@ class _CuestionarioState extends State<Cuestionario> {
             Row(
               children: listings,
             ),
-            Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-              SizedBox(
-                width: espacio,
-                child: Text("En absoluto",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-                        fontWeight: FontWeight.bold)),
-              ),
-              Center(
-                child: Text("Mucho",
-                    style: TextStyle(
-                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-                        fontWeight: FontWeight.bold)),
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisSize: MainAxisSize.max, 
+              children: [
+                Text("En absoluto",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                    fontWeight: FontWeight.bold
+                  )
+                ),
+                Text("Mucho",
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                    fontWeight: FontWeight.bold)
+                ),
+              //   SizedBox(
+              //     width: espacio,
+              //     child: Text("En absoluto",
+              //       style: TextStyle(
+              //           color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+              //           fontWeight: FontWeight.bold)),
+              //   ),
+              //   Center(
+              //     child: Text("Mucho",
+              //       style: TextStyle(
+              //           color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+              //           fontWeight: FontWeight.bold)),
+              // ),
             ]),
           ],
         ),
@@ -241,7 +253,7 @@ class _CuestionarioState extends State<Cuestionario> {
               return Scaffold(
                 backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
                 appBar: Plantillas().formatoAppBar(
-                    "Cuestionario - Pregunta ${index + 1} de 31"),
+                    "Pregunta ${index + 1} de 31"),
                 body: Center(
                   child: AspectRatio(
                     aspectRatio: 2 / 3,

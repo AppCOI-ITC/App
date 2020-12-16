@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter_app/Calendario/calendario.dart';
-// import 'package:flutter_app/custom_icons_icons.dart';
+import 'package:flutter_app/custom_icons_icons.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionario.dart';
 import 'package:flutter_app/screens/cuestionario/cuestionarioExcepcional.dart';
 import 'package:flutter_app/screens/services/auth.dart';
@@ -13,135 +13,204 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  //Se crea un objeto de tipo calendario
+  //Objetos
   Calendario calendario = new Calendario();
-  bool excepcional = false;
   final AuthService _auth = AuthService();
+  final _messaging = FBMessaging.instance;
+  //Variables
+  bool excepcional = false;
 
   @override
   Widget build(BuildContext context) {
-    final _messaging = FBMessaging.instance;
-    _messaging.stream.listen((event) {
-      print('New Message: $event');
-    });
+
+    //Funcion encargada de escuchar las notificaciones
+    _messaging.stream.listen((event) {print('New Message: $event');});
+
+    //===========Widget===========
     return Scaffold(
-      backgroundColor: Colors.blueGrey[50],
+      backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
       //===================================
       //==============DRAWNER==============
       //===================================
-      drawer: Drawer(
-        elevation: 10.0,
-        child: ListView(
-          children: [
-            /*UserAccountsDrawerHeader(
-              accountName: Text('Nombre'),
-              accountEmail: Text('campo de texto'),
-              currentAccountPicture: CircleAvatar(
-                backgroundColor: Colors.grey[400],
-              ),
-              decoration:
-                  BoxDecoration(color: Color.fromRGBO(109, 213, 250, 1)),
-            ), Actualmente no funciona así que quedacomentado */
-            ListTile(
-              leading: Icon(Icons.assistant_photo),
-              title: Text('Reportar error'),
-              onTap: () {
-                pantallaCE(context, excepcional);
-              },
+      drawer: ClipRRect(
+        //ClipRRect permite darle al drawer la forma circular
+        borderRadius: BorderRadius.only(bottomRight: Radius.circular(60.0)),
+        child: Drawer(
+          elevation: 5.0,
+          child: Container(
+            color: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
+            child: Column(
+              children: [
+                //Parte superior del drawer 
+                SizedBox(
+                  height: 15.0,
+                ),
+                SizedBox(
+                  height: 50.0,
+                  child: Text(
+                    'Menu',
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                      fontSize: 30.0
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                Container(
+                  height: 1.3,
+                  color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                ),
+                
+                //Parte inferior del drawer
+                //=>Reporte de errores
+                ListTile(
+                  leading: Icon(Icons.assistant_photo),
+                  title: Text('Reportar error'),
+                  onTap: () => pantallaCE(context, excepcional),
+                ),
+                //=>Activar notificaciones
+                ListTile(
+                  leading: Icon(Icons.ac_unit),
+                  title: Text('Notificaciones'),
+                  onTap: () {
+                    final _messaging = FBMessaging.instance;
+                    _messaging.init().then((_) async {
+                        await _messaging.requestPermission().then((_) async {
+                          final _token = await _messaging.getToken();
+                          print('Token: $_token');
+                        });
+                    });
+                  },
+                ),
+                //=>Cierre de sesion
+                ListTile(
+                    leading: Icon(Icons.exit_to_app),
+                    title: Text('Cerrar sesión'),
+                    onTap: () async {
+                      await _auth.signOut();
+                    }
+                ), 
+              ],
             ),
-            ListTile(
-                leading: Icon(Icons.exit_to_app),
-                title: Text('Cerrar sesión'),
-                onTap: () async {
-                  await _auth.signOut();
-                }),
-            ListTile(
-              leading: Icon(Icons.ac_unit),
-              title: Text('Notificaciones'),
-              onTap: () {
-                final _messaging = FBMessaging.instance;
-                  _messaging
-                  .init()
-                    .then((_) async {
-                    await _messaging
-                    .requestPermission()
-                    .then((_) async {
-                      final _token = await _messaging.getToken();
-                      print('Token: $_token');
-                      });
-                  });
-              },
-            )
-          ],
+          ), 
         ),
-      ),
+      ), 
       //===================================
       //==============APPBAR===============
       //===================================
       appBar: AppBar(
-        title: Text('COI - ITC', style: TextStyle(color: Colors.black)),
+        //icono del drawer
+        automaticallyImplyLeading: false,
+        leading: Builder(
+          builder: (BuildContext context){
+            return IconButton(
+              icon: Icon(CustomIcons.home),
+              color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+            );
+          }
+        ),
         centerTitle: true,
-        backgroundColor: Color.fromRGBO(109, 213, 250, 1),
-        elevation: 4.0,
-        iconTheme: IconThemeData(color: Colors.black),
+        elevation: 0.0,
+        backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
+
+        //barra inferior del appbar
+        bottom: PreferredSize(
+          preferredSize: Size.fromHeight(10.0),
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+            child: Container(
+              height: 1.3,
+              color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+            ),
+          ),
+        ),
       ),
       //===================================
       //==============BODY=================
       //===================================
       body: Container(
-        color: Colors.grey[100],
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        color: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
+        child: ListView(
+          padding: EdgeInsets.only(top:50.0),
+          // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            //=====BOTON->Cuestionario===========
-            SizedBox(
-              height: 100.0,
-              width: 400.0,
-              child: RaisedButton(
-                color: Colors.green[300],
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15.0)),
-                elevation: 6.0,
-                child: Text(
-                  'Cuestionario',
-                  style: TextStyle(fontSize: 40.0),
-                ),
-                onPressed: () {
-                  Route route =
-                      MaterialPageRoute(builder: (bc) => Cuestionario());
-                  Navigator.of(context).push(route);
-                },
-              ),
-            ),
-            //-------------------Calendario-----
+            //===========CALENDARIO================
             calendario,
             //=====BOTON->Cuestionario excepcional===
-            SizedBox(
-              height: 100.0,
-              width: 400.0,
-              child: RaisedButton.icon(
-                icon: Icon(
-                  Icons.assignment_late,
-                  size: 35.0,
+            Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    margin: EdgeInsets.only(right:17.0, left:17.0),
+                    child: FlatButton.icon(
+                      icon: Icon(
+                        CustomIcons.info,
+                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                        size: 18,
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      color: Color.fromARGB(150, 0xFF, 0xFF, 0xFF),
+                      label: Text(
+                        'Reporte de sintomas anormales',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.start,
+                      ),
+                      onPressed: () {
+                        print('En proceso');
+                        setState(() => excepcional = true);
+                        advertencia(context, excepcional);
+                      },
+                    ),
+                  ) 
                 ),
-                elevation: 6.0,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10.0)),
-                color: Colors.red[400],
-                label: Text(
-                  'Cuestionario Excepcional',
-                  style: TextStyle(fontSize: 25.0),
-                  textAlign: TextAlign.center,
-                ),
-                onPressed: () {
-                  print('En proceso');
-                  setState(() {
-                    excepcional = true;
-                  });
-                  advertencia(context, excepcional);
-                },
-              ),
+              ]
             ),
+            //=====BOTON->Cuestionario===========
+            Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: Container(
+                    margin: EdgeInsets.only(right:17.0, left:17.0),
+                    child: FlatButton.icon(
+                      icon: Icon(
+                        CustomIcons.alerta,
+                        color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                        size: 18,
+                      ),
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30.0)),
+                      color: Color.fromARGB(150, 0xFF, 0xFF, 0xFF),
+                      label: Text(
+                        'Cuestionario',
+                        style: TextStyle(
+                          color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                          fontSize: 18.0,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      onPressed: () {
+                        print('En proceso');
+                        setState(() {
+                          Route route = MaterialPageRoute(builder: (bc) => Cuestionario());
+                          Navigator.of(context).push(route);}
+                        );
+                      }
+                    ),
+                  ) 
+                ),
+              ]
+            )
           ],
         ),
       ),
@@ -169,75 +238,51 @@ void proceso(context) {
 }
 
 //cambio a la pantalla del cuestionario excepcional
+//dependiendo del estado de la variable bool se envia el registro a excepcion o a cuestionarios expecionales
 void pantallaCE(context, bool excepcion) {
-  Route route =
-      MaterialPageRoute(builder: (bc) => CExcepcional(excepcional: excepcion));
+  Route route = MaterialPageRoute(builder: (bc) => CExcepcional(excepcional: excepcion));
   Navigator.of(context).push(route);
 }
 
 //cuadro de "advertencia"
 void advertencia(context, excepcion) {
   showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Text('Advertencia'),
-          content: Text(
-              'Esta seguro de querer realizar un cuestionario excepcional'),
-          actions: [
-            RaisedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: Text('No')),
-            RaisedButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-                pantallaCE(context, excepcion);
-              },
-              child: Text('Si'),
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        backgroundColor: Color.fromARGB(255, 0xF9, 0x35, 0x49),
+        title: Text('Cuidado',textAlign: TextAlign.center,),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text('Seguro/a de querer reportar sintomas anormales? esto enviara una alerta a su medico'),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: Text('No')
+                ),
+                RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();//?
+                    pantallaCE(context, excepcion);
+                  },
+                  child: Text('Si'),
+                )
+              ],
             )
           ],
-        );
-      });
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(30.0))),
+      );
+    }
+  );
 }
-
-
-/*Row(
-  mainAxisAlignment: MainAxisAlignment.spaceAround,
-  children: [
-    //=====BOTON->Reportes===============
-    SizedBox(
-      height: 50.0,
-      width: 175.0,
-      child: RaisedButton.icon(
-        icon: Icon(Icons.receipt),
-        elevation: 6.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        color: Colors.green[300],
-        label: Text('Reportes', style: TextStyle(fontSize: 23.0)),
-        onPressed: () {
-          print('en proceso');
-          proceso(context);
-        },
-      ),
-    ),
-    //=====BOTON->Calendario=============
-    SizedBox(
-      height: 50.0,
-      width: 175.0,
-      child: RaisedButton.icon(
-        icon: Icon(Icons.calendar_today),
-        elevation: 6.0,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
-        label: Text('Calendario', style: TextStyle(fontSize: 22.0)),
-        color: Colors.green[300],
-        onPressed: () {
-          abrirCalendario(context);
-          //print('en proceso');
-          //proceso(context);
-        },
-      ),
-    ),
-  ],
-),*/
