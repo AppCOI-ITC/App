@@ -332,7 +332,6 @@ class _VerEventosState extends State<VerEventos> {
     } else {
       dia = widget.dia;
     }
-    if (dias.isNotEmpty) {
       return Column(
         //fecha del día
         children: [
@@ -358,7 +357,6 @@ class _VerEventosState extends State<VerEventos> {
             itemBuilder: (context, evento) {
               return Column(
                 children: [
-                  Text('${dias.length}'),
                   Card(
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(18.0)),
                     color: dias1[dia].eventos[evento].color,
@@ -420,8 +418,5 @@ class _VerEventosState extends State<VerEventos> {
           ),
         ],
       );
-    } else {
-      return Center(child: Text('Ningún evento disponible'));
-    }
   }
 }

@@ -41,9 +41,8 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
         padding: EdgeInsets.all(3),
         child: ListView(
           children: [
-            Expanded(
-              flex: 5,
-              child: TableCalendar(
+
+              TableCalendar(
                 calendarController: _controller,
                 headerStyle: HeaderStyle(
                     titleTextStyle: TextStyle(
@@ -80,15 +79,14 @@ class _VisualizarCalendarioState extends State<VisualizarCalendario> {
                   });
                 },
               ),
-            ),
-            Expanded(
-              flex: 5,
-              child: Container(
+
+
+              Container(
                   color: Color(0xffFFEDE1),
                   margin: EdgeInsets.symmetric(vertical: 10, horizontal: 3),
                   padding: EdgeInsets.all(3),
                   child: Center(child: secundario)),
-            ),
+
           ],
         ),
       ),
