@@ -15,7 +15,8 @@ class Cuestionario extends StatefulWidget {
 }
 
 class _CuestionarioState extends State<Cuestionario> {
-  final CollectionReference collectionBD = FirebaseFirestore.instance.collection('DataUsuarios');
+  final CollectionReference collectionBD =
+      FirebaseFirestore.instance.collection('DataUsuarios');
   final FirebaseAuth auth = FirebaseAuth.instance;
   User user;
   get uid => auth.currentUser.uid;
@@ -37,9 +38,10 @@ class _CuestionarioState extends State<Cuestionario> {
 
   bool cuestionarioF = false;
   int index = 0;
+  bool dosr = false;
   final reset = <bool>[false, false, false, false, false, false, false];
   final isSelected = <bool>[false, false, false, false, false, false, false];
-  List<int> respuestasCuest = List.filled(31, -1);
+  List<int> respuestasCuest = List.filled(31, 2);
 
   Widget build(BuildContext context) {
     Future<String> recuperar() async {
@@ -191,7 +193,9 @@ class _CuestionarioState extends State<Cuestionario> {
         ));
       }
       double espacio;
-      if (listings.length == 4) {
+      if (listings.length == 2) {
+        dosr = true;
+      } else if (listings.length == 4) {
         espacio = 250;
       } else if (listings.length == 7) {
         espacio = 400;
@@ -204,34 +208,23 @@ class _CuestionarioState extends State<Cuestionario> {
               children: listings,
             ),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              mainAxisSize: MainAxisSize.max, 
-              children: [
-                Text("En absoluto",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-                    fontWeight: FontWeight.bold
-                  )
-                ),
-                Text("Mucho",
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-                    fontWeight: FontWeight.bold)
-                ),
-              //   SizedBox(
-              //     width: espacio,
-              //     child: Text("En absoluto",
-              //       style: TextStyle(
-              //           color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-              //           fontWeight: FontWeight.bold)),
-              //   ),
-              //   Center(
-              //     child: Text("Mucho",
-              //       style: TextStyle(
-              //           color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-              //           fontWeight: FontWeight.bold)),
-              // ),
-            ]),
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  SizedBox(
+                    width: dosr ? 100 : espacio,
+                    child: Text(dosr ? "No" : "En absoluto",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                  Center(
+                    child: Text(dosr ? "Sí" : "Mucho",
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                            fontWeight: FontWeight.bold)),
+                  ),
+                ]),
           ],
         ),
       ));
@@ -252,8 +245,8 @@ class _CuestionarioState extends State<Cuestionario> {
               int cant = int.parse(data[index][data[index].length - 1]);
               return Scaffold(
                 backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
-                appBar: Plantillas().formatoAppBar(
-                    "Pregunta ${index + 1} de 31"),
+                appBar:
+                    Plantillas().formatoAppBar("Pregunta ${index + 1} de 31"),
                 body: Center(
                   child: AspectRatio(
                     aspectRatio: 2 / 3,
@@ -320,6 +313,7 @@ class _CuestionarioState extends State<Cuestionario> {
                                           true;
                                     }
                                   }
+                                  dosr = false;
                                 });
                               }),
                           RaisedButton(
@@ -348,9 +342,10 @@ class _CuestionarioState extends State<Cuestionario> {
                                       isSelected.setAll(0, reset);
                                     }
                                   }
-                                  if ((index == 29) &&
+                                  if ((index == 30) &&
                                       (respuestasCuest.indexOf(-1) == -1))
                                     cuestionarioF = true;
+                                  dosr = false;
                                 });
                               })
                         ],
