@@ -5,11 +5,22 @@ class Loading extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.blueGrey[50],
+      color: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
       child: Center(
-        child: SpinKitRipple(
-          color: Colors.grey,
-          size: 80.0,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+                child: Image.asset(
+              "assets/images/logo.png",
+              width: 300,
+              height: 300,
+            )),
+            SpinKitThreeBounce(
+              color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+            )
+          ],
         ),
       ),
     );

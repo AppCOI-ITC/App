@@ -143,15 +143,16 @@ class _HomeState extends State<Home> {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
+                              scrollable: true,
                               title: Text('Créditos'),
                               content: Text(
-                                'Esta aplicación fue creada por alumnos de 6to año del colegio ITC en el marco de pasantías en la institución COI.\n\n CREADORES \n\t Apablaza Tomás \n\t Calderón Francisco \n\t Iril Rocco \n\t Triviño Lautaro',
-                                style: TextStyle(
-                                  color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.w400,
-                                ),
-                              ),
+                                  'Esta aplicación fue creada por alumnos de 6to año del colegio ITC en el marco de pasantías en la institución COI.\n\n Uso de cuestionarios QLQ-C30 \n Aaronson NK, Ahmedzai S, Bergman B, Bullinger M, Cull A, Duez NJ, Filiberti A, Flechtner H, Fleishman SB, de Haes JCJM, Kaasa S, Klee MC, Osoba D, Razavi D, Rofe PB, Schraub S, Sneeuw KCA, Sullivan M, Takeda F. The European Organisation for Research and Treatment of Cancer QLQ-C30: A quality-of-life instrument for use in international clinical trials in oncology. Journal of the National Cancer Institute 1993; 85: 365-376. \n\n CREADORES \n\t Apablaza Tomás \n\t Calderón Francisco \n\t Iril Rocco \n\t Triviño Lautaro',
+                                  style: TextStyle(
+                                    color:
+                                        Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                                    fontSize: 18.0,
+                                    fontWeight: FontWeight.w400,
+                                  )),
                               actions: [
                                 RaisedButton(
                                     onPressed: () {
@@ -253,7 +254,7 @@ class _HomeState extends State<Home> {
                   flex: 1,
                   fit: FlexFit.tight,
                   child: Container(
-                    margin: EdgeInsets.only(right: 17.0, left: 17.0),
+                    margin: EdgeInsets.only(right: 17.0, left: 17.0, top: 7.0),
                     child: FlatButton.icon(
                         icon: Icon(
                           CustomIcons.alerta,

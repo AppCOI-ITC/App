@@ -1,6 +1,6 @@
 {
-    "name": "App",
-    "short_name": "App",
+    "name": "OncoSalud",
+    "short_name": "OncoSalud",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",
@@ -10,12 +10,12 @@
     "prefer_related_applications": false,
     "icons": [
         {
-            "src": "icons/Icon-192.png",
+            "src": "icons/logo192.png",
             "sizes": "192x192",
             "type": "image/png"
         },
         {
-            "src": "icons/Icon-512.png",
+            "src": "icons/logo512.png",
             "sizes": "512x512",
             "type": "image/png"
         }

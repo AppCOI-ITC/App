@@ -41,7 +41,7 @@ class _CuestionarioState extends State<Cuestionario> {
   bool dosr = false;
   final reset = <bool>[false, false, false, false, false, false, false];
   final isSelected = <bool>[false, false, false, false, false, false, false];
-  List<int> respuestasCuest = List.filled(31, 2);
+  List<int> respuestasCuest = List.filled(31, -1);
 
   Widget build(BuildContext context) {
     Future<String> recuperar() async {
