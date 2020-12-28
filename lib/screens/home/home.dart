@@ -123,7 +123,7 @@ class _HomeState extends State<Home> {
                 ),
                 //=>Activar notificaciones
                 ListTile(
-                  leading: Icon(Icons.ac_unit),
+                  leading: Icon(Icons.add_alert),
                   title: Text('Notificaciones'),
                   onTap: () {
                     final _messaging = FBMessaging.instance;
@@ -146,7 +146,7 @@ class _HomeState extends State<Home> {
                               scrollable: true,
                               title: Text('Créditos'),
                               content: Text(
-                                  'Esta aplicación fue creada por alumnos de 6to año del colegio ITC en el marco de pasantías en la institución COI.\n\n Uso de cuestionarios QLQ-C30 \n Aaronson NK, Ahmedzai S, Bergman B, Bullinger M, Cull A, Duez NJ, Filiberti A, Flechtner H, Fleishman SB, de Haes JCJM, Kaasa S, Klee MC, Osoba D, Razavi D, Rofe PB, Schraub S, Sneeuw KCA, Sullivan M, Takeda F. The European Organisation for Research and Treatment of Cancer QLQ-C30: A quality-of-life instrument for use in international clinical trials in oncology. Journal of the National Cancer Institute 1993; 85: 365-376. \n\n CREADORES \n\t Apablaza Tomás \n\t Calderón Francisco \n\t Iril Rocco \n\t Triviño Lautaro',
+                                  'Esta aplicación fue creada por alumnos de 6to año del colegio ITC en el marco de pasantías en la institución COI. \n\n CREADORES \n\t Apablaza Tomás \n\t Calderón Francisco \n\t Iril Rocco \n\t Triviño Lautaro \n\n Uso de cuestionarios QLQ-C30 \n Aaronson NK, Ahmedzai S, Bergman B, Bullinger M, Cull A, Duez NJ, Filiberti A, Flechtner H, Fleishman SB, de Haes JCJM, Kaasa S, Klee MC, Osoba D, Razavi D, Rofe PB, Schraub S, Sneeuw KCA, Sullivan M, Takeda F. The European Organisation for Research and Treatment of Cancer QLQ-C30: A quality-of-life instrument for use in international clinical trials in oncology. Journal of the National Cancer Institute 1993; 85: 365-376.',
                                   style: TextStyle(
                                     color:
                                         Color.fromARGB(255, 0x14, 0x53, 0x9A),
@@ -213,6 +213,22 @@ class _HomeState extends State<Home> {
           padding: EdgeInsets.only(top: 50.0),
           // mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/logo.png',
+                  width: 75,
+                  height: 75,
+                ),
+                Text('OncoSALUD',
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.w600,
+                      color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                    ))
+              ],
+            ),
             //===========CALENDARIO================
             calendario,
             //=====BOTON->Cuestionario excepcional===

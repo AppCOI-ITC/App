@@ -64,6 +64,24 @@ class _SignInState extends State<SignIn> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  Container(
+                    child: Column(
+                      children: [
+                        Image.asset(
+                          'assets/images/logo.png',
+                          width: 200,
+                          height: 200,
+                        ),
+                        Text('OncoSALUD',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.w600,
+                              color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                            ))
+                      ],
+                    ),
+                  ),
+                  SizedBox(height: 16),
                   Form(
                     key: _formKey,
                     child: Column(

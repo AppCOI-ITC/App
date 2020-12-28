@@ -2,6 +2,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_app/custom_icons_icons.dart';
+import 'package:flutter_app/screens/home/home.dart';
 import 'package:flutter_app/shared/constants.dart';
 
 class CExcepcional extends StatefulWidget {
@@ -18,19 +20,50 @@ class _CExcepcionalState extends State<CExcepcional> {
   final FirebaseAuth auth = FirebaseAuth.instance;
   final _formKey = GlobalKey<FormState>();
   String respuesta = '';
-  String excepcion = "¿Qué sintomas tiene?";
+  String excepcion = "Síntomas anormales";
   String error = "Defina su error";
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: new Scaffold(
-          appBar: new AppBar(
-            title: Text('COI - ITC', style: TextStyle(color: Colors.black)),
+          backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
+          appBar: AppBar(
+            //icono del drawer
+            automaticallyImplyLeading: false,
+            title: Text(
+              widget.excepcional ? excepcion : error,
+              style: TextStyle(
+                  color: Color.fromARGB(255, 0x14, 0x53, 0x9A), fontSize: 25.0),
+              textAlign: TextAlign.center,
+            ),
+            leading: Builder(builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(CustomIcons.home),
+                color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                onPressed: () {
+                  Route casa = MaterialPageRoute(builder: (bc) => Home());
+                  Navigator.pop(context);
+                  Navigator.of(context).push(casa);
+                },
+              );
+            }),
             centerTitle: true,
-            backgroundColor: Colors.red[300],
-            elevation: 4.0,
-            iconTheme: IconThemeData(color: Colors.black),
+            elevation: 0.0,
+            backgroundColor: Color.fromARGB(255, 0xFF, 0xED, 0xE1),
+
+            //barra inferior del appbar
+            bottom: PreferredSize(
+              preferredSize: Size.fromHeight(10.0),
+              child: Padding(
+                padding: EdgeInsets.fromLTRB(10.0, 0.0, 10.0, 0.0),
+                child: Container(
+                  height: 1.3,
+                  color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                ),
+              ),
+            ),
           ),
           body: new Container(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
@@ -38,10 +71,6 @@ class _CExcepcionalState extends State<CExcepcional> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
-                Text(
-                  widget.excepcional ? excepcion : error,
-                  style: TextStyle(fontSize: 30.0),
-                ),
                 Form(
                   key: _formKey,
                   child: Column(
@@ -49,7 +78,7 @@ class _CExcepcionalState extends State<CExcepcional> {
                       SizedBox(),
                       TextField(
                         minLines: 10,
-                        maxLines: 15,
+                        maxLines: 20,
                         decoration: textInputDecoration,
                         onChanged: (value) {
                           setState(() => respuesta = value);
@@ -64,15 +93,22 @@ class _CExcepcionalState extends State<CExcepcional> {
                   child: RaisedButton.icon(
                     icon: Icon(
                       Icons.send,
+                      color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
                       size: 25.0,
                     ),
-                    elevation: 6.0,
+                    elevation: 1,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0)),
-                    color: Colors.red[400],
+                        borderRadius: BorderRadius.circular(10.0),
+                        side: BorderSide(
+                          width: 2,
+                          color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                        )),
+                    color: Colors.black.withOpacity(0.05),
                     label: Text(
                       'Enviar',
-                      style: TextStyle(fontSize: 25.0),
+                      style: TextStyle(
+                          color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
+                          fontSize: 22.0),
                       textAlign: TextAlign.center,
                     ),
                     onPressed: () {

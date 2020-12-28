@@ -39,6 +39,7 @@ class _CuestionarioState extends State<Cuestionario> {
   bool cuestionarioF = false;
   int index = 0;
   bool dosr = false;
+  bool cuatror = false;
   final reset = <bool>[false, false, false, false, false, false, false];
   final isSelected = <bool>[false, false, false, false, false, false, false];
   List<int> respuestasCuest = List.filled(31, -1);
@@ -56,7 +57,7 @@ class _CuestionarioState extends State<Cuestionario> {
     }
 
     void analisisRespuesta() {
-      String alarma = "El paciente XXXX presenta los siguientes síntomas:";
+      String alarma = "El paciente presenta los siguientes síntomas:";
       String mensaje = "Se le recomienda: ";
       bool alarmaPresente = false;
       bool mensajePresente = false;
@@ -113,16 +114,18 @@ class _CuestionarioState extends State<Cuestionario> {
       }
       showDialog(
           //Se va a modificar en un futuro
+
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
+              scrollable: true,
               title: Text('¡Cuestionario subido exitosamente!',
                   style: TextStyle(
                       color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
                       fontWeight: FontWeight.bold)),
               content: Text(
-                  (alarmaPresente ? alarma : "") +
-                      "\n\n" +
+                  // (alarmaPresente ? alarma : "") +
+                  //     "\n\n" +
                       (mensajePresente ? mensaje : ""),
                   style:
                       TextStyle(color: Color.fromARGB(255, 0x14, 0x53, 0x9A))),
@@ -197,6 +200,7 @@ class _CuestionarioState extends State<Cuestionario> {
         dosr = true;
       } else if (listings.length == 4) {
         espacio = 250;
+        cuatror = true;
       } else if (listings.length == 7) {
         espacio = 400;
       }
@@ -213,13 +217,14 @@ class _CuestionarioState extends State<Cuestionario> {
                 children: [
                   SizedBox(
                     width: dosr ? 100 : espacio,
-                    child: Text(dosr ? "No" : "En absoluto",
+                    child: Text(
+                        dosr ? "No" : (cuatror ? "En absoluto" : "Pésimo"),
                         style: TextStyle(
                             color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
                             fontWeight: FontWeight.bold)),
                   ),
                   Center(
-                    child: Text(dosr ? "Sí" : "Mucho",
+                    child: Text(dosr ? "Sí" : (cuatror ? "Mucho" : "Excelente"),
                         style: TextStyle(
                             color: Color.fromARGB(255, 0x14, 0x53, 0x9A),
                             fontWeight: FontWeight.bold)),
@@ -314,6 +319,7 @@ class _CuestionarioState extends State<Cuestionario> {
                                     }
                                   }
                                   dosr = false;
+                                  cuatror = false;
                                 });
                               }),
                           RaisedButton(
@@ -346,6 +352,7 @@ class _CuestionarioState extends State<Cuestionario> {
                                       (respuestasCuest.indexOf(-1) == -1))
                                     cuestionarioF = true;
                                   dosr = false;
+                                  cuatror = false;
                                 });
                               })
                         ],

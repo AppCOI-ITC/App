@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "appcoi-itc"
+  },
+  "targets": {
+    "appcoi-itc": {
+      "hosting": {
+        "oncosalud-coi": [
+          "oncosalud-coi.web.app"
+        ],
+        "oncosalud-coi.web.app": [
+          "oncosalud-coi"
+        ]
+      }
+    }
   }
 }

@@ -85,8 +85,7 @@ class _RegisterState extends State<Register> {
                             TextFormField(
                                 decoration: textInputDecoration.copyWith(
                                     labelText: 'DOCUMENTO'),
-                                validator: (val) =>
-                                    val.length > 9 || val.length == 0
+                                validator: (val) => val.length != 8
                                         ? 'Ingrese un DNI válido'
                                         : null,
                                 onChanged: (val) {
